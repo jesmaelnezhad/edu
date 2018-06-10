@@ -1,0 +1,23 @@
+.top-bar{
+	background-color: 	#f4f5f9;
+	border-radius:		5px;
+}
+.top-bar ul{
+	background-color: 	#f4f5f9;
+}
+.top-bar ul li a{
+	color:		#000000;
+}
+.grid-container{
+	width: 70%;
+}
+
+.callout{
+	border-radius:5px;
+}
+.button{
+	border-radius:5px;
+}
+label{
+	color:gray;
+}
