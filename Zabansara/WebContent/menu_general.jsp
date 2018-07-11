@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="model.AboutUs"%>
 <%@page import="model.Role"%>
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,7 +16,17 @@ if(user == null){
 	      <li class="menu-text">زبان سرا</li>
 			<li><a href="./index.jsp">صفحه‌ی اصلی</a></li>
 			<li><a href="./news.jsp">مطالب و خبرها</a></li>
-			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="">درباره ما</a>
+				<ul class="menu vertical">
+				<%
+				List<AboutUs> aboutusList = AboutUs.fetchAllAboutUs();
+				for(AboutUs aboutus : aboutusList){
+				%>
+					<li><a href="./aboutus.jsp?id=<%=aboutus.id%>"><%=aboutus.menu_item %></a></li>
+				<%
+				}
+				%>
+				</ul></li>
 			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
@@ -47,7 +59,18 @@ if(user == null){
 					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
 					<li><a href="./exams.jsp">آزمون‌های عمومی</a></li>
 				</ul></li>
-			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="">درباره ما</a>
+				<ul class="menu vertical">
+					<li><a href="./aboutus.jsp">مدیریت صفحات درباره ما</a></li>
+				<%
+				List<AboutUs> aboutusList = AboutUs.fetchAllAboutUs();
+				for(AboutUs aboutus : aboutusList){
+				%>
+					<li><a href="./aboutus.jsp?id=<%=aboutus.id%>"><%=aboutus.menu_item %></a></li>
+				<%
+				}
+				%>
+				</ul></li>
 			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
@@ -87,7 +110,17 @@ if(user == null){
 					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
 				</ul></li>
 			<li><a href="./news.jsp">مطالب و خبرها</a></li>
-			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="">درباره ما</a>
+				<ul class="menu vertical">
+				<%
+				List<AboutUs> aboutusList = AboutUs.fetchAllAboutUs();
+				for(AboutUs aboutus : aboutusList){
+				%>
+					<li><a href="./aboutus.jsp?id=<%=aboutus.id%>"><%=aboutus.menu_item %></a></li>
+				<%
+				}
+				%>
+				</ul></li>
 			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
@@ -124,12 +157,22 @@ if(user == null){
 			<li><a href="./profile.jsp">اطلاعات کاربر</a></li>
 			<li><a href="">آموزشی</a>
 				<ul class="menu vertical">
-					<li><a href="./registration.jsp"WebContent/menu_general.jsp"">ثبت‌نام</a></li>
+					<li><a href="./registration.jsp">ثبت‌نام</a></li>
 					<li><a href="./classes.jsp">کلاس‌ها</a></li>
 					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
 					<li><a href="./exams.jsp">آزمون‌های عمومی</a></li>
 				</ul></li>
-			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="">درباره ما</a>
+				<ul class="menu vertical">
+				<%
+				List<AboutUs> aboutusList = AboutUs.fetchAllAboutUs();
+				for(AboutUs aboutus : aboutusList){
+				%>
+					<li><a href="./aboutus.jsp?id=<%=aboutus.id%>"><%=aboutus.menu_item %></a></li>
+				<%
+				}
+				%>
+				</ul></li>
 			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>

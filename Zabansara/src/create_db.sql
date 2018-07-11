@@ -59,6 +59,15 @@ CREATE TABLE IF NOT EXISTS news
 	PRIMARY KEY(id)
 ) ENGINE=INNODB;
 
+/*==== aboutus ====*/
+CREATE TABLE IF NOT EXISTS aboutus
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	menu_item VARCHAR(200) NOT NULL,
+	photo_name VARCHAR(100),
+	PRIMARY KEY(id)
+) ENGINE=INNODB;
+
 /*==== terms ====*/
 CREATE TABLE IF NOT EXISTS terms
 (

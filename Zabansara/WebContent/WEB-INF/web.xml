@@ -46,6 +46,15 @@
     <servlet-name>news-servlet</servlet-name>
     <url-pattern>/news</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>aboutus-servlet</servlet-name>
+    <servlet-class>request_handlers/AboutUsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aboutus-servlet</servlet-name>
+    <url-pattern>/aboutus</url-pattern>
+  </servlet-mapping>
       
   <servlet>
     <servlet-name>profile-servlet</servlet-name>
