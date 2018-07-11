@@ -1,1 +1,12 @@
-<context  allowCasualMultipartParsing="true" />
+<Context  allowCasualMultipartParsing="true" debug="5" reloadable="true" 
+crossContext="true">
+<!--  
+<Resource name="jdbc/dbconn" auth="Container"
+                  type="javax.sql.DataSource" 
+driverClassName="com.mysql.jdbc.Driver"
+                  url="jdbc:mysql://localhost:3306/zabansara_db"
+                  username="zabansara_admin" password="zabansaraadminpassword" maxActive="50" 
+maxIdle="15" maxWait="-1"/>
+
+ -->
+</Context>

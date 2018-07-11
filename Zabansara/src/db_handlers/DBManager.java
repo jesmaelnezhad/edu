@@ -13,6 +13,8 @@ import java.sql.Statement;
 public class DBManager {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	private static final String DB_URL="jdbc:mysql://localhost:3306/zabansara_db?useUnicode=yes&characterEncoding=utf-8";
+//	private static final String USER = "da_admin";
+//	private static final String PASS = "0uvjpBaCD6";
 	private static final String USER = "zabansara_admin";
 	private static final String PASS = "zabansaraadminpassword";
 	//

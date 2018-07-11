@@ -30,7 +30,7 @@ if(user == null){
 		<ul class="menu vertical">
 			<li><a href="./grades.jsp?classId=<%=classId%>&type=participation&command=view">مشاهده</a></li>
 		</ul></li>
-	<li><a href="#">لیست کلاسی</a></li>
+	<li><a href="./participants.jsp?type=class&classId=<%=classId%>">لیست کلاسی</a></li>
 
 </ul>
 
@@ -53,8 +53,7 @@ if(user == null){
 			<li><a href="./grades.jsp?classId=<%=classId%>&type=participation&command=view">مشاهده</a></li>
 			<li><a href="./grades.jsp?classId=<%=classId%>&type=participation&command=edit">تغییر</a></li>
 		</ul></li>
-	<li><a href="#">لیست کلاسی</a></li>
-
+	<li><a href="./participants.jsp?type=class&classId=<%=classId%>">لیست کلاسی</a></li>
 </ul>
 	
 	

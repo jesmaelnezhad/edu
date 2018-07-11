@@ -40,7 +40,7 @@ if(request.getSession().getAttribute("selected_exam") != null){
 					Grade g = Grade.fetchExamGrade(exam.id, participant.id);
 				%>
 				<tr style="padding:0px" >
-					<td style="padding:2px"><%=i %></td>
+					<td style="padding:2px"><%=i+1 %></td>
 					<td style="padding:2px"><%=participant.fname + " " + participant.lname %></td>
 					<td style="padding:2px"><%=(g==null?"--":g.grade) %></td>
 					<td style="padding:2px"><%=(g==null?"--":g.notes) %></td>

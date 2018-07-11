@@ -1,9 +1,13 @@
 .top-bar{
-	background-color: 	#f4f5f9;
+	background-image: url("../images/menu-background.jpeg");
+    background-repeat: repeat;
+    background-position: bottom;
 	border-radius:		5px;
 }
 .top-bar ul{
-	background-color: 	#f4f5f9;
+	background-image: url("../images/menu-background.jpeg");
+    background-repeat: repeat;
+    background-position: bottom;
 }
 .top-bar ul li a{
 	color:		#000000;
@@ -20,4 +24,20 @@
 }
 label{
 	color:gray;
+}
+.reveal-modal-bg {
+position: fixed;
+}
+
+.grid-container{
+    background-image: url("../images/background.jpg");
+    background-repeat: repeat;
+}
+.grid-x{
+    background-image: url("../images/background.jpg");
+    background-repeat: repeat;
+}
+.callout{
+    background-image: url("../images/background.jpg");
+    background-repeat: repeat;
 }

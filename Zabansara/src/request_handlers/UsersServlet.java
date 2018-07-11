@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.Level;
 import model.News;
+import model.Photo;
 import model.Role;
 import model.Term;
 import model.User;
 import utility.Message;
-import utility.Photo;
 
 /**
  * Servlet implementation class SignInServlet
@@ -41,6 +42,11 @@ public class UsersServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		User user = User.getCurrentUser(request.getSession());
+		if(user == null || user.role != Role.ADMIN) {
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			return;
+		}
 		// Set response content type
 		String command = (String) request.getParameter("command");
 		
@@ -81,10 +87,92 @@ public class UsersServlet extends HttpServlet {
 				Photo.savePhoto("users", newUser.id, photoPart, getServletContext());
 				request.getSession().setAttribute("message", new Message("کاربر با موفقیت اضافه شد.", "green"));
 			}
+		}else if("remove".equals(command)) {
+			if(request.getParameter("userId") == null) {
+				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
+				response.sendRedirect(request.getContextPath() + "/users.jsp");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("userId"));
+			User.deleteUser(id);
+			request.getSession().setAttribute("message", new Message("کاربر با موفقیت حذف شد.", "green"));
+			response.sendRedirect(request.getContextPath() + "/users.jsp");
+			return;
+		}else if("update".equals(command)) {
+			
+			if(request.getParameter("userId") == null ) {
+				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
+				response.sendRedirect(request.getContextPath() + "/users.jsp");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("userId"));
+			int roleSelector = Integer.parseInt(request.getParameter("role_selector"));
+			Role role = Role.STUDENT;
+			switch (roleSelector) {
+			case 0:
+				role = Role.STUDENT;
+				break;
+			case 1:
+				role = Role.TEACHER;
+				break;
+			case 2:
+				role = Role.ADMIN;
+				break;
+			}
+			String fname = (String) request.getParameter("fname");
+			String lname = (String) request.getParameter("lname");
+			String cellphone = (String) request.getParameter("cellphone");
+			String nationalCode = (String) request.getParameter("national_code");
+			String emailAddr = (String) request.getParameter("email_addr");
+			Part idImagePart = request.getPart("id_image");
+			Part photoPart = request.getPart("photo");
+
+//			if(title == null || title.equals("")) {
+//				request.getSession().setAttribute("message", new Message("اطلاعات سطح را کامل وارد کنید."));
+//				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+//				return;
+//			}
+			
+			User changeUser = User.fetchUser(id);
+			if(changeUser == null) {
+				request.getSession().setAttribute("message", new Message("كاربر یافت نشد."));
+				response.sendRedirect(request.getContextPath() + "/users.jsp");
+				return;
+			}
+			changeUser.role = role;
+			changeUser.fname = fname;
+			changeUser.lname = lname;
+			changeUser.cellphone_number = cellphone;
+			changeUser.national_code = nationalCode;
+			changeUser.email_addr = emailAddr;
+			if(photoPart != null) {
+				changeUser.photoName = idImagePart.getSubmittedFileName();
+			}
+			if(idImagePart != null) {
+				changeUser.photoName2 = photoPart.getSubmittedFileName();
+			}
+			User.updateUser(changeUser);
+			if(changeUser.id == user.id) {
+				if(User.isCurrentUserSecondary(request.getSession())) {
+					User.setSecondaryUser(request.getSession(), changeUser);
+				}else {
+					User.setCurrentUser(request.getSession(), changeUser);
+				}
+				user = changeUser;
+			}
+			if(photoPart != null) {
+				Photo.savePhoto("users", id, photoPart, request.getServletContext());
+			}
+			if(idImagePart != null) {
+				Photo.savePhoto("users", id, idImagePart, request.getServletContext());
+			}
+			request.getSession().setAttribute("message", new Message("کاربر با موفقیت تغییر یافت.", "green"));
+			response.sendRedirect(request.getContextPath() + "/users.jsp");
+			return;
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/signup.jsp");
+		response.sendRedirect(request.getContextPath() + "/users.jsp");
 		return;
 	}
 

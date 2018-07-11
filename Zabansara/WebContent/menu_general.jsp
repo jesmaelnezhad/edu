@@ -14,12 +14,8 @@ if(user == null){
 	      <li class="menu-text">زبان سرا</li>
 			<li><a href="./index.jsp">صفحه‌ی اصلی</a></li>
 			<li><a href="./news.jsp">مطالب و خبرها</a></li>
-			<li><a href="">ترم جاری</a>
-				<ul class="menu vertical">
-					<li><a href="./classes.jsp">کلاس‌ها</a></li>
-					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
-				</ul></li>
-			<li><a href="#">ارتباط به ما</a></li>
+			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
 	  </div>
@@ -49,8 +45,10 @@ if(user == null){
 					<li><a href="./terms.jsp">ترم‌ها و سطوح</a></li>
 					<li><a href="./classes.jsp">کلاس‌ها</a></li>
 					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
+					<li><a href="./exams.jsp">آزمون‌های عمومی</a></li>
 				</ul></li>
-			<li><a href="#">ارتباط به ما</a></li>
+			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
 	  </div>
@@ -86,8 +84,10 @@ if(user == null){
 				<ul class="menu vertical">
 					<li><a href="./availability.jsp">اعلام آمادگی</a></li>
 					<li><a href="./term_schedule.jsp">تقویم ترم</a></li>
+					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
 				</ul></li>
 			<li><a href="./news.jsp">مطالب و خبرها</a></li>
+			<li><a href="./aboutus.jsp">درباره ما</a></li>
 			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
@@ -127,8 +127,10 @@ if(user == null){
 					<li><a href="./registration.jsp"WebContent/menu_general.jsp"">ثبت‌نام</a></li>
 					<li><a href="./classes.jsp">کلاس‌ها</a></li>
 					<li><a href="./term_schedule.jsp">زمان‌بندی امتحانات و ترم</a></li>
+					<li><a href="./exams.jsp">آزمون‌های عمومی</a></li>
 				</ul></li>
-			<li><a href="#">ارتباط به ما</a></li>
+			<li><a href="./aboutus.jsp">درباره ما</a></li>
+			<li><a href="./contactus.jsp">ارتباط به ما</a></li>
 
 		</ul>
 	  </div>

@@ -28,6 +28,16 @@
     <url-pattern>/signout</url-pattern>
   </servlet-mapping>
     
+  
+  <servlet>
+    <servlet-name>photos-servlet</servlet-name>
+    <servlet-class>request_handlers/PhotosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>photos-servlet</servlet-name>
+    <url-pattern>/photos</url-pattern>
+  </servlet-mapping>
+    
   <servlet>
     <servlet-name>news-servlet</servlet-name>
     <servlet-class>request_handlers/NewsServlet</servlet-class>
@@ -98,5 +108,23 @@
   <servlet-mapping>
     <servlet-name>users-servlet</servlet-name>
     <url-pattern>/users</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>exams-servlet</servlet-name>
+    <servlet-class>request_handlers/ExamsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>exams-servlet</servlet-name>
+    <url-pattern>/exams</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>grades-servlet</servlet-name>
+    <servlet-class>request_handlers/GradesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>grades-servlet</servlet-name>
+    <url-pattern>/grades</url-pattern>
   </servlet-mapping>
 </web-app>

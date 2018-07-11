@@ -51,6 +51,35 @@ public class Level {
 		return news;
 	}
 	
+	public static void deleteLevel(int id) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("DELETE FROM levels WHERE id=?;");
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateLevel(Level level) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("UPDATE levels SET title=? WHERE id=?;");
+			stmt.setString(1, level.title);
+			stmt.setInt(2, level.id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static List<Level> fetchAllLevels(){
 		List<Level> levelsList = new ArrayList<>();
 		

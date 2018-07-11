@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.ExamType"%>
 <%@page import="model.Exam"%>
 <%@page import="model.Level"%>
@@ -18,6 +19,9 @@
 <link rel="stylesheet" href="css/foundation.css">
 <link rel="stylesheet" href="css/app.css">
     <script src="js/tinymce/tinymce.min.js"></script>
+  	<link rel="stylesheet" href="css/reveal.css">	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+	<script type="text/javascript" src="js/jquery.reveal.js"></script>
     <script>tinymce.init({ selector:'textarea' });</script>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;direction:ltr}
@@ -87,26 +91,19 @@
 		<!-- ---------------------------------------------- -->
 		<%
 			request.setCharacterEncoding("UTF-8");
-			// command
-			String command = "";
-			if (request.getParameter("command") == null) {
-				command = "view";
-			}else{
-				command = request.getParameter("command");
-			}
 			// type
 			String type = "";
 			if (request.getParameter("type") == null) {
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
 				return;
 			}else{
 				type = request.getParameter("type");
 			}
-			String examType = "";
+			// type has the value of 'class' or 'general_exam'
 			TermClass termClass = null;
 			Exam exam = null;
-			if("midterm".equals(type) || "final".equals(type) || "participation".equals(type)){
-				examType = "class";
+			List<User> participants = new ArrayList<>();
+			if("class".equals(type)){
 				// classId
 				if (request.getParameter("classId") == null) {
 					response.sendRedirect(request.getContextPath() + "/classes.jsp");
@@ -123,22 +120,13 @@
 					response.sendRedirect(request.getContextPath() + "/index.jsp");
 					return;
 				}
-				if ((user.role == Role.TEACHER && user.id != termClass.teacherId) 
-						|| (user.role == Role.ADMIN && "edit".equals(command)) ){
+				if (user.role == Role.TEACHER && user.id != termClass.teacherId){
 					request.getSession().setAttribute("message", new Message("شما به اطلاعات این کلاس دسترسی ندارید."));
 					response.sendRedirect(request.getContextPath() + "/classes.jsp");
 					return;
 				}
-				ExamType eType = Exam.convertFromString(type);
-				exam = Exam.fetchClassExam(termClass.id, eType);
-				if(exam == null){
-					request.getSession().setAttribute("message", new Message("امتحان پیدا نشد."));
-					response.sendRedirect(request.getContextPath() + "/class.jsp?id=" + termClass.id);
-					return;
-				}
-			}else{
-				// TODO
-				examType = "general";
+				participants = TermClass.fetchClassParticipants(classId); 
+			}else if("general_exam".equals(type)){
 				// examId
 				if (request.getParameter("examId") == null) {
 					response.sendRedirect(request.getContextPath() + "/exams.jsp");
@@ -151,6 +139,7 @@
 					response.sendRedirect(request.getContextPath() + "/exams.jsp");
 					return;
 				}
+				participants = Exam.fetchExamParticipants(exam);
 			}
 			
 		%>
@@ -171,23 +160,10 @@
 				<div class="callout">
 					<div class="grid-x">
 						<%
-						if("class".equals(examType)){
+						if("class".equals(type)){
 						%>
 						<div class="large-6 cell">
 							<div class="callout" style="padding: 5px; border: none">
-								<span>
-									<h4>
-										<%
-										if("midterm".equals(type)){
-											%>میان‌ترم<%
-										}else if("final".equals(type)){
-											%>فاینال<%
-										}else if("participation".equals(type)){
-											%>کلاسی<%
-										}
-										%>
-									</h4>
-								</span>
 								<span>
 									<label>سطح:</label>
 									<h5>
@@ -257,9 +233,9 @@
 						</div>
 						
 						<%
-						}else if("general".equals(examType)){
+						}else if("general_exam".equals(type)){
 						%>
-												<div class="large-6 cell">
+						<div class="large-6 cell">
 							<div class="callout" style="padding: 5px; border: none">
 								<span>
 									<h4>
@@ -275,32 +251,90 @@
 						<%
 						}
 						%>
-						<div class="large-12 cell" id="grades_table_container">
-						<hr style="margin: 0px; padding: 0px" />
-						<%
-						request.getSession().setAttribute("selected_exam", exam);
-						if("view".equals(command)){
-							%>
-								
-								<jsp:include page="./examView.jsp" >
-								  <jsp:param name="examId" value="<%= exam.id %>" />
-								</jsp:include>								
-							<%
-						}else if("edit".equals(command)){
-							%>
-							  <%if("class".equals(examType)){ %>
-								<jsp:include page="./examEdit.jsp" >
-								  <jsp:param name="examId" value="<%= exam.id %>" />
-								  <jsp:param name="classId" value="<%= termClass.id %>" />
-								</jsp:include>								
-							  <%}else{ %>
-							  	<jsp:include page="./examEdit.jsp" >
-								  <jsp:param name="examId" value="<%= exam.id %>" />
-								</jsp:include>
-							  <%} %>
-							<%
-						}
-						%>
+						<div class="large-12 cell" id="participants_table_container">
+							<hr style="margin: 0px; padding: 0px" />
+							<label>لیست ثبت‌نامی‌ها:</label>
+							<table>
+								<tr style="padding:0px">
+									<td style="padding:2px">شماره</td>
+									<td style="padding:2px">نام زبان‌آموز</td>
+									<td style="padding:2px">شماره زبان‌آموزی</td>
+									<%
+									if(user.role == Role.ADMIN){
+										%>
+										<td style="padding:2px"></td>
+										<%
+									}
+									%>
+								</tr>
+								<%
+								int i = 0;
+								for(User participant : participants){
+								%>
+								<tr style="padding:0px" >
+									<td style="padding:2px"><%=i+1 %></td>
+									<td style="padding:2px"><%=participant.fname + " " + participant.lname %></td>
+									<td style="padding:2px"><%=participant.student_id %></td>
+									<%
+									if(user.role == Role.ADMIN){
+										%>
+										<td style="padding:2px">
+											<a href="#" data-reveal-id="removeRegistrationModal_<%=participant.id %>" 
+											class="alert button" style="margin:0px;font-size:12px">
+											<%
+											if("class".equals(type)){
+												%>حذف از کلاس<%
+											}else if("general_exam".equals(type)){
+												%>حذف از امتحان<%
+											}
+											%>
+											</a>
+											<div id="removeRegistrationModal_<%=participant.id %>" class="reveal-modal" style="position:fixed;">
+													<form
+														action="<%
+														if("class".equals(type)){
+															out.print(request.getContextPath() + "/register");
+														}else if("general_exam".equals(type)){
+															out.print(request.getContextPath() + "/exams");
+														}
+
+														
+														%>"
+														method="post">
+														<input type="hidden" name="command" value="unregister" />
+														<input type="hidden" name="userId" value="<%=participant.id%>" />
+														<%
+														if("class".equals(type)){
+															%><input type="hidden" name="classId" value="<%=termClass.id%>" /><%
+														}else if("general_exam".equals(type)){
+															%><input type="hidden" name="examId" value="<%=exam.id%>" /><%
+														}
+
+														
+														%> 
+														<div class="grid-x ">
+															<div class="large-9 cell" style="padding-left: 0px">آیا
+																اطمینان دارید؟</div>
+															<div class="large-1 cell" style="padding-right: 5px"
+																float="left">
+																<input type="submit" name="sunmit" value="بله، حذف کن."
+																	class="button"
+																	onclick="$('#myModal').foundation('reveal', 'close');" />
+															</div>
+														</div>
+													</form>
+													<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+											</div>
+										</td>
+										<%
+									}
+									%>
+								</tr>
+								<%
+									i++;
+								}
+								%>
+							</table>
 						</div>
 
 

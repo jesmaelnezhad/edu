@@ -159,6 +159,56 @@ public class User {
 		return user;	
 	}
 	
+	public static void deleteUser(int id) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("DELETE FROM users WHERE id=?;");
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateUser(User user) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("UPDATE users SET "
+					+ "role=?,fname=?,lname=?,cellphone=?,email_addr=?,"
+					+ "national_code=?,photo_name=?, photo_name2=? WHERE id=?;");
+			switch (user.role) {
+			case STUDENT:
+				stmt.setString(1, "student");
+				break;
+			case TEACHER:
+				stmt.setString(1, "teacher");
+				break;
+			case ADMIN:
+				stmt.setString(1, "admin");
+				break;
+
+			}
+			stmt.setString(2, user.fname);
+			stmt.setString(3, user.lname);
+			stmt.setString(4, user.cellphone_number);
+			stmt.setString(5, user.email_addr);
+			stmt.setString(6, user.national_code);
+			stmt.setString(7, user.photoName);
+			stmt.setString(8, user.photoName2);
+			stmt.setInt(9, user.id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public static void updatePassword(User user, String newPassword) {
 		if(user == null) {
 			return ;

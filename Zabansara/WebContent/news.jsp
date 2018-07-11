@@ -1,3 +1,5 @@
+<%@page import="model.Photo"%>
+<%@page import="utility.Message"%>
 <%@page import="model.News"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,7 +16,10 @@
     <link rel="stylesheet" href="css/app.css">
     <script src="js/jquery-3.3.1.min.js"></script> 
     <script src="js/tinymce/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });</script>
+   	<script>tinymce.init({ selector:'textarea' });</script>
+    <link rel="stylesheet" href="css/reveal.css">	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+	<script type="text/javascript" src="js/jquery.reveal.js"></script>
   </head>
   <body>
 
@@ -35,8 +40,28 @@
 
 <!-- ---------------------------------------------- -->
 <div class="large-12 medium-12 cell">
+<%
+if(request.getParameter("id") != null){
+	int id = Integer.parseInt(request.getParameter("id"));
+	News news = News.fetchNews(id);
+	if(news == null){
+		request.getSession().setAttribute("message", new Message("این خبر یافت نشد."));
+		response.sendRedirect(request.getContextPath() + "/news.jsp");
+		return;
+	}
+	%>
+	<h3><%=news.title %></h3>
+
+     <img src="<%=Photo.getPhotoPath("news", news.id, news.photoName, request.getServletContext())%>"/>
+     <div class="grid-x ">
+     <div class="large-12 cell">
+     <%=news.content %>
+     </div>
+     </div>
 
 <%
+}else{
+
 if(user != null && user.role == Role.ADMIN){
 %>
 <form method="post" enctype="multipart/form-data" action="<%out.print(request.getContextPath()); %>/news">
@@ -46,9 +71,8 @@ if(user != null && user.role == Role.ADMIN){
 	      <div class="large-9 cell" style="padding-left:0px">
 		<input type="text" placeholder="عنوان مطلب را اینجا وارد کنید." name="title"/>
 	      </div>
-	      <div class="large-2 cell" style="padding-right:5px;padding-left:0px">
-		<label for="photoFileUpload" class="button">آپلود عکس</label>
-		<input type="file" id="photoFileUpload" class="show-for-sr" name="photo_file">
+	      <div class="large-3 cell" style="padding-right:5px;padding-left:0px">
+		<input type="file" id="photoFileUpload" name="photo_file">
 	      </div>
 	      <div class="large-1 cell" style="padding-right:5px" float="left">
 		<input type="submit" class="button" value="ذخیره" />
@@ -70,6 +94,18 @@ if(user != null && user.role == Role.ADMIN){
 	      </div>
       </div>
 </form>
+
+<% 
+if(session.getAttribute("message") != null){
+	%><label style="color:<% out.print(((Message)session.getAttribute("message")).color);%>;">
+	<%
+	out.print(((Message)session.getAttribute("message")).message);
+	session.removeAttribute("message");
+	%>
+	</label>
+	<%
+}
+%>
 <%
 }
 %>
@@ -85,12 +121,62 @@ for(News news : newsList){
 	<%
 	if(user != null && user.role == Role.ADMIN){
 	%>
-					<td style="padding:2px;float:left" ><a href="#" class="alert button" style="margin:0px">حذف</a></td>
-					<td style="padding:2px;float:left"><a href="#" class="button" style="margin:0px">تغییر</a></td>
+					<td style="padding:2px;float:left" >
+						<a href="#" data-reveal-id="newsRemoveModal_<%=news.id %>" class="alert button" style="margin:0px">حذف</a>
+						<div id="newsRemoveModal_<%=news.id %>" class="reveal-modal" style="position:fixed;">
+								<form
+									action="<%out.print(request.getContextPath() + "/news");%>"
+									method="post">
+									<input type="hidden" name="command" value="remove" /> <input
+										type="hidden" name="newsId" value="<%=news.id%>" />
+									<div class="grid-x ">
+										<div class="large-9 cell" style="padding-left: 0px">آیا
+											اطمینان دارید؟</div>
+										<div class="large-1 cell" style="padding-right: 5px"
+											float="left">
+											<input type="submit" name="sunmit" value="بله، حذف کن."
+												class="button"
+												onclick="$('#myModal').foundation('reveal', 'close');" />
+										</div>
+									</div>
+								</form>
+								<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+						</div>	
+					</td>
+					<td style="padding:2px;float:left">
+							<a href="#" data-reveal-id="newsChangeModal_<%=news.id %>" class="button" style="margin:0px">تغییر</a>
+							<div id="newsChangeModal_<%=news.id %>" class="reveal-modal" style="position:fixed;">
+								<form method="post" enctype="multipart/form-data"
+									action="<%out.print(request.getContextPath());%>/news">
+									<input type="hidden" name="command" value="update" /> <input
+										type="hidden" name="newsId" value="<%=news.id%>" />
+										<label>تغییر ترم:</label>
+									<div class="grid-x">
+											<label>عنوان مطلب:</label>
+									      <div class="large-12 cell" style="padding-left:0px">
+										<input type="text" placeholder="عنوان مطلب را اینجا وارد کنید." name="title" value="<%=news.title%>"/>
+									      </div>
+									      <div class="large-10 cell" style="padding-right:5px;padding-left:0px">
+												<input type="file" id="photoFileUpload" name="photo_file">
+									      </div>
+									      <div class="large-1 cell" style="padding-right:5px" float="left">
+										<input type="submit" class="button" value="ذخیره" />
+									      </div>
+									      <div class="large-12 cell">
+										   <textarea name="news_content"><%=news.content%>
+										   </textarea>
+									      </div>
+									</div>
+								</form>
+								<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+							</div>
+					</td>
 	<%
 	}
 	%>
-					<td style="padding:2px;float:left"><a href="#" class="success button" style="margin:0px">مشاهده مطلب</a></td>
+					<td style="padding:2px;float:left">
+					<a href="<%=request.getContextPath() + "/news.jsp?id=" + news.id  %>" class="success button" style="margin:0px">مشاهده مطلب</a>
+					</td>
 				</tr>
 <%
 }
@@ -98,7 +184,9 @@ for(News news : newsList){
 			</table>
       </div>
 
-
+<%
+}
+%>
 
 </div>
 <!-- ---------------------------------------------- -->

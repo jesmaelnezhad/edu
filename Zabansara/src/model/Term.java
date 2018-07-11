@@ -65,6 +65,39 @@ public class Term {
 		return news;
 	}
 	
+	public static void deleteTerm(int id) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("DELETE FROM terms WHERE id=?;");
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateTerm(Term term) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("UPDATE terms SET title=?, term_start=?, classes_start=?, finals_start=?, term_end=? WHERE id=?;");
+			stmt.setString(1, term.title);
+			stmt.setString(2, term.termStart);
+			stmt.setString(3, term.classesStart);
+			stmt.setString(4, term.finalsStart);
+			stmt.setString(5, term.termEnd);
+			stmt.setInt(6, term.id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static List<Term> fetchAllTerms(){
 		List<Term> termsList = new ArrayList<>();
 		

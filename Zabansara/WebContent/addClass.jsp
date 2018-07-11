@@ -297,8 +297,31 @@
 			</td>
 			<%
 				if (user != null && user.role == Role.ADMIN) {
-			%><td style="padding: 2px; float: left"><a href="#"
-				class="alert button" style="margin: 0px">حذف</a></td>
+			%>
+			<td style="padding: 2px; float: left">
+				<a href="#" data-reveal-id="classRemoveModal_<%=termClass.id %>" class="alert button" style="margin:0px">حذف</a>
+				<div id="classRemoveModal_<%=termClass.id %>" class="reveal-modal" style="position:fixed;">
+						<form
+							action="<%out.print(request.getContextPath() + "/class");%>"
+							method="post">
+							<input type="hidden" name="command" value="remove" /> 
+							<input type="hidden" name="classId" value="<%=termClass.id%>" />
+							<input type="hidden" name="termId" value="<%=termId %>" />
+							<div class="grid-x ">
+								<div class="large-9 cell" style="padding-left: 0px">آیا
+									اطمینان دارید؟</div>
+								<div class="large-1 cell" style="padding-right: 5px"
+									float="left">
+									<input type="submit" name="sunmit" value="بله، حذف کن."
+										class="button"
+										onclick="$('#myModal').foundation('reveal', 'close');" />
+								</div>
+							</div>
+						</form>
+						<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+				</div>
+				
+			</td>
 			<%
 				}
 			%>

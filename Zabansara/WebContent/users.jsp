@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="css/foundation.css">
 <link rel="stylesheet" href="css/app.css">
 <script src="js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="css/reveal.css">	
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+<script type="text/javascript" src="js/jquery.reveal.js"></script>
 <style type="text/css">
 .tg {
 	border-collapse: collapse;
@@ -54,6 +57,43 @@
 	vertical-align: top
 }
 </style>
+<script type="text/javascript">
+function validateInputs() {
+//	if(document.getElementById("roleSelectorInput").value == 0){
+//		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\"></label>";
+//		return false;
+//	}
+	if(! document.getElementById("fnameInput").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">نام را وارد کنید.</label>";
+		return false;
+	}
+	if(! document.getElementById("lnameInput").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">نام خانوادگی را وارد کنید</label>";
+		return false;
+	}
+	if(! document.getElementById("cellphoneInput").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">شماره تلفن را وارد کنید.</label>";
+		return false;
+	}
+	if(! document.getElementById("nationalCodeInput").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">شماره ملی را وارد کنید.</label>";
+		return false;
+	}
+	if(! document.getElementById("emailAddrInput").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">آدرس ایمیل را وارد کنید.</label>";
+		return false;
+	}
+	if(! document.getElementById("idImageFileUpload").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">آپلود عکس کارت ملی الزامیست.</label>";
+		return false;
+	}
+	if(! document.getElementById("photoFileUpload").value){
+		document.getElementById("messageContainer").innerHTML = "<label style=\"color:red\">آپلود عکس پرسونلی الزامیست.</label>";
+		return false;
+	}
+	return true;
+}
+</script>
 </head>
 <body>
 
@@ -82,7 +122,17 @@
 		%>
 		<!-- -------------------------------------------- -->
 		<!--  ----------------------------------------------- -->
-
+<% 
+if(session.getAttribute("message") != null){
+	%><label style="color:<% out.print(((Message)session.getAttribute("message")).color);%>;">
+	<%
+	out.print(((Message)session.getAttribute("message")).message);
+	session.removeAttribute("message");
+	%>
+	</label>
+	<%
+}
+%>
 		<div class="grid-x">
 
 			<div class="large-12 medium-12 cell">
@@ -169,11 +219,98 @@
 										}
 								%>
 							</td>
-							<td style="padding: 2px;"><a
+							<td style="padding: 2px;">
+							<a
 								href="<%out.print(request.getContextPath());%>/signin?secondaryLogin=true&userId=<%out.print(u.id);%>"
 								class="button" style="margin: 0px;font-size:12px">ورود به حساب</a>
-								<a href="#"
-								class="alert button" style="margin: 0px;font-size:12px">حذف</a></td>
+								
+															<a href="#" data-reveal-id="userChangeModal_<%=u.id%>"
+								class="button" style="margin: 0px;font-size:12px">تغییر</a>
+								<div id="userChangeModal_<%=u.id%>" class="reveal-modal"
+									style="position: fixed;">
+									<form method="post"
+										action="<%out.print(request.getContextPath());%>/users"
+										enctype='multipart/form-data'
+										onsubmit="return validateInputs();">
+										<input type="hidden" name="command" value="update" />
+										<input type="hidden" name="userId" value="<%=u.id %>" />
+										<div class="grid-x">
+											<div class="large-3 cell">
+												<select name="role_selector" id="roleSelectorInput"
+													onchange="">
+													<option value="0"<%=(u.role == Role.STUDENT?"selected":"") %>>زبان‌آموز</option>
+													<option value="1" <%=(u.role == Role.TEACHER?"selected":"") %>>مربی</option>
+													<option value="2" <%=(u.role == Role.ADMIN?"selected":"") %>>ادمین</option>
+												</select>
+											</div>
+											<div class="large-3 cell">
+												<input type="text" placeholder="نام" name="fname"
+													id="fnameInput" value="<%=u.fname%>"></input>
+											</div>
+											<div class="large-4 cell">
+												<input type="text" placeholder="نام خانوادگی" name="lname"
+													id="lnameInput" value=<%=u.lname%> ></input>
+											</div>
+											<div class="large-3 cell">
+												<input type="text" placeholder="شماره تلفن" name="cellphone"
+													id="cellphoneInput" value=<%=u.cellphone_number%> ></input>
+											</div>
+											<div class="large-4 cell">
+												<input type="text" placeholder="شماره ملی"
+													name="national_code" id="nationalCodeInput" value=<%=u.national_code%> ></input>
+											</div>
+											<div class="large-5 cell">
+												<input type="text" placeholder="آدرس ایمیل"
+													name="email_addr" id="emailAddrInput" value=<%=u.email_addr%>></input>
+											</div>
+											<div class="large-12 cell"></div>
+											<div class="large-3 cell">
+												<label style="padding: 5px;">نام كاربري</label> <input
+													type="text" disabled
+													value="<%=u.username%>"></input>
+											</div>
+											<div class="large-2 cell" style="margin-right: 5px;"></div>
+											<div class="large-5 cell" style="margin-right: 5px;">
+												<label style="padding: 5px;" for="idImageFileUpload">آپلود
+													عکس کارت ملی</label> <input style="padding: 5px;" type="file"
+													name="id_image" id="idImageFileUpload">
+											</div>
+											<div class="large-5 cell" style="margin-right: 5px;">
+												<label style="padding: 5px;" for="photoFileUpload">آپلود
+													عکس پرسنلی</label> <input style="padding: 5px;" type="file"
+													name="photo" id="photoFileUpload">
+											</div>
+
+											<div class="large-12 cell">
+												<input type="submit" class="button" value="ذخیره"
+													style="float: left"></input>
+											</div>
+										</div>
+									</form>
+									<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+								</div>
+																
+								<a href="#" data-reveal-id="userRemoveModal_<%=u.id %>" class="alert button" style="margin:0px;font-size:12px">حذف</a>
+								<div id="userRemoveModal_<%=u.id %>" class="reveal-modal" style="position:fixed;">
+										<form
+											action="<%out.print(request.getContextPath() + "/users");%>"
+											method="post">
+											<input type="hidden" name="command" value="remove" /> 
+											<input type="hidden" name="userId" value="<%=u.id%>" />
+											<div class="grid-x ">
+												<div class="large-9 cell" style="padding-left: 0px">آیا
+													اطمینان دارید؟</div>
+												<div class="large-1 cell" style="padding-right: 5px"
+													float="left">
+													<input type="submit" name="sunmit" value="بله، حذف کن."
+														class="button"
+														onclick="$('#myModal').foundation('reveal', 'close');" />
+												</div>
+											</div>
+										</form>
+										<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+								</div>
+							</td>
 						</tr>
 						<%
 						}

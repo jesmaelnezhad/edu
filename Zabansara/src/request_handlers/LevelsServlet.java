@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.Exam;
 import model.Level;
 import model.News;
+import model.Photo;
 import model.Term;
 import model.User;
 import utility.Message;
@@ -43,17 +45,53 @@ public class LevelsServlet extends HttpServlet {
 		// Set response content type
 		String command = (String) request.getParameter("command");
 		
-		String title = (String) request.getParameter("title");
+		if("add".equals(command)) {
+			String title = (String) request.getParameter("title");
 
-		if(title == null || title.equals("")) {
-			request.getSession().setAttribute("message", new Message("اطلاعات سطح را کامل وارد کنید."));
+			if(title == null || title.equals("")) {
+				request.getSession().setAttribute("message", new Message("اطلاعات سطح را کامل وارد کنید."));
+				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				return;
+			}
+			Level newLevel = Level.addLevel(title);
+		}else if("remove".equals(command)) {
+			if(request.getParameter("levelId") == null) {
+				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
+				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("levelId"));
+			Level.deleteLevel(id);
+			request.getSession().setAttribute("message", new Message("سطح با موفقیت حذف شد.", "green"));
+		}else if("update".equals(command)) {
+			
+			if(request.getParameter("levelId") == null ) {
+				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
+				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("levelId"));
+			String title = (String) request.getParameter("levelTitle");
+
+			if(title == null || title.equals("")) {
+				request.getSession().setAttribute("message", new Message("اطلاعات سطح را کامل وارد کنید."));
+				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				return;
+			}
+			
+			Level level = Level.fetchLevel(id);
+			if(level == null) {
+				request.getSession().setAttribute("message", new Message("سطح یافت نشد."));
+				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				return;
+			}
+			level.title = title;
+			Level.updateLevel(level);
+			request.getSession().setAttribute("message", new Message("سطح با موفقیت تغییر یافت.", "green"));
 			response.sendRedirect(request.getContextPath() + "/terms.jsp");
 			return;
 		}
-		
-		if("add".equals(command)) {
-			Level newLevel = Level.addLevel(title);
-		}
+
 
 
 		response.sendRedirect(request.getContextPath() + "/terms.jsp");

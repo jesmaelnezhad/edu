@@ -322,6 +322,28 @@ public class TermClass {
 		}
 	}
 	
+
+	public static void removeFromClass(User user, int classId) {
+		if(user == null) {
+			return;
+		}
+		if(! isRegisterred(user.id, classId)) {
+			return;
+		}
+		Connection conn = DBManager.getDBManager().getConnection();
+		try {
+			PreparedStatement stmt = 
+					conn.prepareStatement("DELETE FROM registrations WHERE student_id=? AND class_id=?;");
+			stmt.setInt(1, user.id);
+			stmt.setInt(2, classId);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static List<User> fetchClassParticipants(int classId) {
 		List<User> participants = new ArrayList<>();
 

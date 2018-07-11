@@ -1,3 +1,6 @@
+<%@page import="model.ExamType"%>
+<%@page import="model.Exam"%>
+<%@page import="model.Grade"%>
 <%@page import="model.Level"%>
 <%@page import="model.TermClass"%>
 <%@page import="model.Term"%>
@@ -145,6 +148,9 @@
 			}
 			int classId = Integer.parseInt(request.getParameter("id"));
 			TermClass termClass = TermClass.fetchClass(classId);
+			Exam midterm = Exam.fetchClassExam(classId, ExamType.MIDTERM);
+			Exam finalExam = Exam.fetchClassExam(classId, ExamType.FINAL);
+			Exam participation = Exam.fetchClassExam(classId, ExamType.PARTICIPATION);
 			if (termClass == null) {
 				request.getSession().setAttribute("message", new Message("کلاس پیدا نشد."));
 				response.sendRedirect(request.getContextPath() + "/classes.jsp");
@@ -256,18 +262,55 @@
 									<table>
 										<tr style="padding: 0px">
 											<td style="padding: 2px;border-bottom:double"><strong>نمرات کلاسی</strong></td>
-											<td style="padding: 2px;border-bottom:double">--</td>
-											<td style="padding: 2px;border-bottom:double"></td>
+											<%
+											Grade grade = Grade.fetchExamGrade(participation.id, user.id);
+											if(grade == null){
+												%>
+												<td style="padding: 2px;border-bottom:double">--</td>
+												<td style="padding: 2px;border-bottom:double"></td>
+												<%
+											}else{
+												%>
+												<td style="padding: 2px;border-bottom:double"><%=grade.grade %></td>
+												<td style="padding: 2px;border-bottom:double"><%=grade.notes %></td>
+												<%
+											}
+											%>
+											
 										</tr>
 										<tr>
 											<td style="padding: 2px;border-bottom:double"><strong>میان‌ترم</strong></td>
-											<td style="padding: 2px;border-bottom:double">--</td>
-											<td style="padding: 2px;border-bottom:double"></td>
+											<%
+											grade = Grade.fetchExamGrade(midterm.id, user.id);
+											if(grade == null){
+												%>
+												<td style="padding: 2px;border-bottom:double">--</td>
+												<td style="padding: 2px;border-bottom:double"></td>
+												<%
+											}else{
+												%>
+												<td style="padding: 2px;border-bottom:double"><%=grade.grade %></td>
+												<td style="padding: 2px;border-bottom:double"><%=grade.notes %></td>
+												<%
+											}
+											%>
 										</tr>
 										<tr>
 											<td style="padding: 2px;border-bottom:double"><strong>فاینال</strong></td>
-											<td style="padding: 2px;border-bottom:double">--</td>
-											<td style="padding: 2px;border-bottom:double"></td>
+											<%
+											grade = Grade.fetchExamGrade(finalExam.id, user.id);
+											if(grade == null){
+												%>
+												<td style="padding: 2px;border-bottom:double">--</td>
+												<td style="padding: 2px;border-bottom:double">--</td>
+												<%
+											}else{
+												%>
+												<td style="padding: 2px;border-bottom:double"><%=grade.grade %></td>
+												<td style="padding: 2px;border-bottom:double"><%=grade.notes %></td>
+												<%
+											}
+											%>
 										</tr>
 									</table>
 								</div>

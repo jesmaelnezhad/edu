@@ -22,6 +22,15 @@ USE zabansara_db;
 
 /*======== CREATING THE TABLES  ========*/
 
+/*==== photos ====*/
+CREATE TABLE IF NOT EXISTS photos
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	photo_name VARCHAR(200) NOT NULL,
+	caption VARCHAR(200) NOT NULL,
+	PRIMARY KEY(id)
+) ENGINE=INNODB;
+
 /*==== customers ====*/
 CREATE TABLE IF NOT EXISTS users
 (
@@ -113,9 +122,18 @@ CREATE TABLE IF NOT EXISTS exams
 	type ENUM('midterm','final', 'participation', 'general') NOT NULL,
 	title VARCHAR(200),
 	notes VARCHAR(200),
-	class_id INT DEFAULT 0,
+	class_id INT,
 	PRIMARY KEY(id),
 	FOREIGN KEY(class_id) REFERENCES classes(id) ON DELETE CASCADE
+) ENGINE=INNODB;
+
+/*==== exams ====*/
+CREATE TABLE IF NOT EXISTS exam_registrations
+(
+	exam_id INT NOT NULL,
+	student_id INT NOT NULL,
+	FOREIGN KEY(exam_id) REFERENCES exams(id) ON DELETE CASCADE,
+	FOREIGN KEY(student_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 /*==== grades ====*/

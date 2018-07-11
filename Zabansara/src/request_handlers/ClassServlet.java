@@ -97,6 +97,22 @@ public class ClassServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/class.jsp?id=" + classId);
 			return;
 		}
+		
+		if("remove".equals(command)) {
+			
+			if(request.getParameter("classId") == null || request.getParameter("termId") == null) {
+				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
+				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("classId"));
+			int termId = Integer.parseInt(request.getParameter("termId"));
+			TermClass.removeClass(id);
+			request.getSession().setAttribute("selected_termId", termId);
+			request.getSession().setAttribute("message", new Message("كلاس با موفقیت حذف شد.", "green"));
+			response.sendRedirect(request.getContextPath() + "/classes.jsp");
+			return;
+		}
 
 	}
 

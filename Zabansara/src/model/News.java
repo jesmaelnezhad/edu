@@ -78,4 +78,56 @@ public class News {
 		}
 		return newsList;
 	}
+	
+	public static News fetchNews(int id){
+		News result = null;
+		
+		Connection conn = DBManager.getDBManager().getConnection();
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM news WHERE id=?;");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String photoName = rs.getString("photo_name");
+				result = new News(id, title, content, photoName);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public static void deleteNews(int id) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("DELETE FROM news WHERE id=?;");
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateNews(News news) {
+		Connection conn = DBManager.getDBManager().getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("UPDATE news SET title=?, content=?, photo_name=? WHERE id=?;");
+			stmt.setString(1, news.title);
+			stmt.setString(2, news.content);
+			stmt.setString(3, news.photoName);
+			stmt.setInt(4, news.id);
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
