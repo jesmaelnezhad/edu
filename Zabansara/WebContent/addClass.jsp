@@ -1,3 +1,4 @@
+<%@page import="utility.Constants"%>
 <%@page import="model.Role"%>
 <%@page import="model.TermClass"%>
 <%@page import="utility.Message"%>
@@ -60,6 +61,24 @@
 					<option value="9">روزهای فرد - بعد از ظهر - شیفت ۱</option>
 					<option value="8">روزهای فرد - بعد از ظهر - شیفت ۲</option>
 					<option value="7">روزهای فرد - بعد از ظهر - شیفت ۳</option>
+					<option value="18">یکشنبه سه‌شنبه - صبح - شیفت ۱</option>
+					<option value="17">یکشنبه سه‌شنبه - صبح - شیفت ۲</option>
+					<option value="16">یکشنبه سه‌شنبه - صبح - شیفت ۳</option>
+					<option value="15">یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۱</option>
+					<option value="14">یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۲</option>
+					<option value="13">یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۳</option>
+					<option value="24">شنبه چهارشنبه - صبح - شیفت ۱</option>
+					<option value="23">شنبه چهارشنبه - صبح - شیفت ۲</option>
+					<option value="22">شنبه چهارشنبه - صبح - شیفت ۳</option>
+					<option value="21">شنبه چهارشنبه - بعد از ظهر - شیفت ۱</option>
+					<option value="20">شنبه چهارشنبه - بعد از ظهر - شیفت ۲</option>
+					<option value="19">شنبه چهارشنبه - بعد از ظهر - شیفت ۳</option>
+					<option value="30">پنجشنبه جمعه - صبح - شیفت ۱</option>
+					<option value="29">پنجشنبه جمعه - صبح - شیفت ۲</option>
+					<option value="28">پنجشنبه جمعه - صبح - شیفت ۳</option>
+					<option value="27">پنجشنبه جمعه - بعد از ظهر - شیفت ۱</option>
+					<option value="26">پنجشنبه جمعه - بعد از ظهر - شیفت ۲</option>
+					<option value="25">پنجشنبه جمعه - بعد از ظهر - شیفت ۳</option>
 				</select>
 			</div>
 			<div class="large-4 cell" style="padding-left: 0px">
@@ -110,7 +129,10 @@
 	<div class="grid-x">
 
 		<div class="large-12 cell">
-
+<%
+String [] ScheduleTitles = Constants.ScheduleTitles;
+int scheduleIdCounter = 1;
+%>
 			<table class="tg">
 				<thead>
 					<th class="tg-yw4l" colspan="3"><b>بعد از ظهر</b></th>
@@ -126,9 +148,12 @@
 					<td class="tg-yw4l">شیفت ۱</td>
 					<td class="tg-yw4l"></td>
 				</thead>
+				<%
+				for(String scheduleTitle: ScheduleTitles){
+				%>
 				<tr>
 					<%
-						for (int scheduleId = 1; scheduleId < 7; scheduleId++) {
+						for (int scheduleId = scheduleIdCounter; scheduleId < scheduleIdCounter+6; scheduleId++) {
 					%>
 					<td class="tg-yw4l" id="even_2_3">
 						<%
@@ -149,33 +174,12 @@
 					<%
 						}
 					%>
-					<td class="tg-yw4l" style="width: 85px"><b>روزهای زوج</b></td>
+					<td class="tg-yw4l" style="width: 85px"><b><%=scheduleTitle %></b></td>
 				</tr>
-				<tr>
-					<%
-						for (int scheduleId = 7; scheduleId < 13; scheduleId++) {
-					%>
-					<td class="tg-yw4l" id="even_2_3">
-						<%
-							List<User> availableTeachers = Term.fetchAvailableTeachers(termId, scheduleId);
-									for (int i = 0; i < availableTeachers.size(); ++i) {
-						%><div>
-							<%
-								out.print(availableTeachers.get(i).lname);
-							%>
-						</div> <%
- 	if (i != availableTeachers.size() - 1) {
- %><hr style="margin: 0px; padding: 0px" /> <%
- 	}
- 			}
- %>
-
-					</td>
-					<%
-						}
-					%>
-					<td class="tg-yw4l" style="width: 85px"><b>روزهای فرد</b></td>
-				</tr>
+				<%
+					scheduleIdCounter += 6;
+				}
+				%>
 			</table>
 		</div>
 
@@ -261,6 +265,60 @@
 					break;
 						case 7:
 				%>روزهای فرد - بعد از ظهر - شیفت ۳<%
+					break;
+						case 18:
+				%>یکشنبه سه‌شنبه - صبح - شیفت ۱<%
+					break;
+						case 17:
+				%>یکشنبه سه‌شنبه - صبح - شیفت ۲<%
+					break;
+						case 16:
+				%>یکشنبه سه‌شنبه - صبح - شیفت ۳<%
+					break;
+						case 15:
+				%>یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۱<%
+					break;
+						case 14:
+				%>یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۲<%
+					break;
+						case 13:
+				%>یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۳<%
+					break;
+						case 24:
+				%>شنبه چهارشنبه - صبح - شیفت ۱<%
+					break;
+						case 23:
+				%>شنبه چهارشنبه - صبح - شیفت ۲<%
+					break;
+						case 22:
+				%>شنبه چهارشنبه - صبح - شیفت ۳<%
+					break;
+						case 21:
+				%>شنبه چهارشنبه - بعد از ظهر - شیفت ۱<%
+					break;
+						case 20:
+				%>شنبه چهارشنبه - بعد از ظهر - شیفت ۲<%
+					break;
+						case 19:
+				%>شنبه چهارشنبه - بعد از ظهر - شیفت ۳<%
+					break;
+						case 30:
+				%>پنج‌شنبه جمعه - صبح - شیفت ۱<%
+					break;
+						case 29:
+				%>پنج‌شنبه جمعه - صبح - شیفت ۲<%
+					break;
+						case 28:
+				%>پنج‌شنبه جمعه - صبح - شیفت ۳<%
+					break;
+						case 27:
+				%>پنج‌شنبه جمعه - بعد از ظهر - شیفت ۱<%
+					break;
+						case 26:
+				%>پنج‌شنبه جمعه - بعد از ظهر - شیفت ۲<%
+					break;
+						case 25:
+				%>پنج‌شنبه جمعه - بعد از ظهر - شیفت ۳<%
 					break;
 						}
 				%>

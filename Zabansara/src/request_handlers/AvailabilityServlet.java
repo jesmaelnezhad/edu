@@ -19,6 +19,7 @@ import model.News;
 import model.Role;
 import model.Term;
 import model.User;
+import utility.Constants;
 import utility.Message;
 
 /**
@@ -55,7 +56,8 @@ public class AvailabilityServlet extends HttpServlet {
 		int termId = Integer.parseInt((String)request.getParameter("termId"));
 		
 		if("edit".equals(command)) {
-			for(int scheduleId = 1; scheduleId < 13; scheduleId ++) {
+			String [] ScheduleTitles = Constants.ScheduleTitles;
+			for(int scheduleId = 1; scheduleId < ScheduleTitles.length * 6 + 1; scheduleId ++) {
 				if(request.getParameter("schedule_"+scheduleId) == null) {
 					Term.setTeacherAvailablity(termId, user.id, scheduleId, false);
 				}else {

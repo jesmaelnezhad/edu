@@ -1,3 +1,4 @@
+<%@page import="utility.Constants"%>
 <%@page import="model.Role"%>
 <%@page import="model.User"%>
 <%@page import="model.Term"%>
@@ -9,6 +10,8 @@
 int termId = Integer.parseInt(request.getParameter("termId"));
 Term term = Term.fetchTerm(termId);
 User user = User.getCurrentUser(session);
+String[] ScheduleTitles = Constants.ScheduleTitles;
+int scheduleIdCounter = 1;
 if(user != null && user.role == Role.TEACHER){
 %>
 						<form method="post" action="<%out.print(request.getContextPath()); %>/availability">
@@ -38,10 +41,13 @@ if(user != null && user.role == Role.TEACHER){
 												<td class="tg-yw4l">شیفت ۱</td>
 												<td class="tg-yw4l"></td>
 											</thead>
+											<%
+											for(String scheduleTitle : ScheduleTitles){
+											%>
 											<tr>
 											<%
 											int teacherId = user.id;
-											for(int scheduleId = 1; scheduleId < 7; scheduleId ++){ %>
+											for(int scheduleId = scheduleIdCounter; scheduleId < scheduleIdCounter + 6; scheduleId ++){ %>
 												<td class="tg-yw4l">
 												<input name="<%out.print("schedule_"+scheduleId);%>" type="checkbox" 
 												<%
@@ -50,23 +56,11 @@ if(user != null && user.role == Role.TEACHER){
 												}
 												%>></td>
 											<%} %>
-												<td class="tg-yw4l" style="width: 85px"><b>روزهای
-														زوج</b></td>
+												<td class="tg-yw4l" style="width: 85px"><b><%=scheduleTitle %></b></td>
 											</tr>
-											<tr>
 											<%
-											for(int scheduleId = 7; scheduleId < 13; scheduleId ++){ %>
-												<td class="tg-yw4l">
-												<input name="<%out.print("schedule_"+scheduleId);%>" type="checkbox" 
-												<%
-												if(Term.isTeacherAvailable(termId, teacherId, scheduleId)){
-													out.print("checked");
-												}
-												%>></td>
-											<%} %>
-												<td class="tg-yw4l" style="width: 85px"><b>روزهای
-														فرد</b></td>
-											</tr>
+												scheduleIdCounter += 6;
+											} %>
 										</table>
 									</div>
 								</div>
