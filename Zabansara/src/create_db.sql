@@ -49,6 +49,15 @@ CREATE TABLE IF NOT EXISTS users
 	PRIMARY KEY(id)
 ) ENGINE=INNODB;
 
+/*==== contents ====*/
+CREATE TABLE IF NOT EXISTS contents
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	content TEXT NOT NULL,
+	PRIMARY KEY(id)
+) ENGINE=INNODB;
+INSERT INTO contents (content) VALUE ('توضیخات را اینجا وارد کنید.');
+
 /*==== news ====*/
 CREATE TABLE IF NOT EXISTS news
 (
@@ -156,6 +165,7 @@ CREATE TABLE IF NOT EXISTS grades
 	FOREIGN KEY(student_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
+/*========================*/
 INSERT INTO users (role, username, password, fname, lname, cellphone, email_addr)
 VALUE ('admin', 'admin', MD5('apass'), 'admin' , 'admin' , '09177777777', 'admin@admin.com');
 INSERT INTO users (role, username, password, fname, lname, cellphone, email_addr, national_code, student_id, photo_name)

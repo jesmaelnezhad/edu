@@ -1,3 +1,5 @@
+<%@page import="utility.Constants"%>
+<%@page import="model.Content"%>
 <%@page import="utility.Message"%>
 <%@page import="model.Level"%>
 <%@page import="model.Term"%>
@@ -175,6 +177,12 @@ function onBodyLoad(){
 						<div class="large-12 cell" id="classes_table_container">
 
 
+						</div>
+						<div class="large-12 cell">
+							<%
+							Content dayTimes = Content.fetchContent(Constants.AvailabilityContentID);
+							%>
+							<%=dayTimes.content %>
 						</div>
 
 

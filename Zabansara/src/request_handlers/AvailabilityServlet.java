@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.Content;
 import model.News;
 import model.Role;
 import model.Term;
@@ -49,7 +50,7 @@ public class AvailabilityServlet extends HttpServlet {
 			return;
 		}
 		User user = User.getCurrentUser(request.getSession());
-		if(user == null || user.role != Role.TEACHER) {
+		if(user == null || user.role == Role.STUDENT) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 			return;			
 		}
@@ -64,6 +65,18 @@ public class AvailabilityServlet extends HttpServlet {
 					Term.setTeacherAvailablity(termId, user.id, scheduleId, true);					
 				}
 			}
+		}else if("updateContent".equals(command)) {
+			String content = request.getParameter("availability_content");
+			if(content == null) {
+				request.getSession().setAttribute("selected_termId", termId);
+				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				return;
+			}
+			Content newContent = new Content(Constants.AvailabilityContentID, content);
+			Content.updateContent(newContent);
+			request.getSession().setAttribute("selected_termId", termId);
+			response.sendRedirect(request.getContextPath() + "/classes.jsp");
+			return;
 		}
 
 		request.getSession().setAttribute("selected_termId", termId);

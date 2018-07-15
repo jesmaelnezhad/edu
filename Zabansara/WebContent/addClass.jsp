@@ -5,6 +5,7 @@
 <%@page import="model.Level"%>
 <%@page import="model.User"%>
 <%@page import="model.Term"%>
+<%@page import="model.Content"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -15,6 +16,9 @@
 <script>
 
 </script>
+
+    <script src="js/tinymce/tinymce.min.js"></script>
+   	<script>tinymce.init({ selector:'textarea' });</script>
 </head>
 <body>
 	<%
@@ -46,8 +50,8 @@
 			کردن کلاس:</label>
 		<div class="grid-x">
 			<div class="large-4 cell" style="padding-left: 0px">
-				<select name="scheduleId" id="scheduleSelectorInput"
-					onchange="updateTeachersList(this,<%out.print(termId);%>);">
+				<select name="scheduleId" id="scheduleSelectorInput" 
+				onchange="updateTeachersList(this,<%out.print(termId);%>);">
 					<option value="0">انتخاب زمان کلاس</option>
 					<option value="6">روزهای زوج - صبح - شیفت ۱</option>
 					<option value="5">روزهای زوج - صبح - شیفت ۲</option>
@@ -181,6 +185,21 @@ int scheduleIdCounter = 1;
 				}
 				%>
 			</table>
+		</div>
+		
+		<div class="large-12 cell">
+		<%
+		Content dayTimes = Content.fetchContent(Constants.AvailabilityContentID);
+		%>
+			<form method="post" enctype="multipart/form-data"
+		action="<%out.print(request.getContextPath());%>/availability">
+				<input type="hidden" name="command" value="updateContent" />
+				<input type="hidden" name="termId" value="<%=termId%>" />
+			   <textarea name="availability_content"><%=dayTimes.content%>
+			   </textarea>
+			   	<input type="submit" class="button" style="float: left"
+				value="ذخیره" />
+			</form>
 		</div>
 
 

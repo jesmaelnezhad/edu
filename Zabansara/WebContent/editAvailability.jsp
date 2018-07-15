@@ -1,3 +1,4 @@
+<%@page import="model.Content"%>
 <%@page import="utility.Constants"%>
 <%@page import="model.Role"%>
 <%@page import="model.User"%>
@@ -68,6 +69,13 @@ if(user != null && user.role == Role.TEACHER){
 									style="padding-right: 5px; float: left">
 									<input type="submit" class="button" value="ذخيره" style="float: left"/>
 								</div>
+								<div class="large-12 cell">
+									<%
+									Content dayTimes = Content.fetchContent(Constants.AvailabilityContentID);
+									%>
+									<%=dayTimes.content %>
+								</div>
+								
 							</div>
 						</form>
 						

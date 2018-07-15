@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
     <script src="js/jquery-3.3.1.min.js"></script> 
+    <script src="js/tinymce/tinymce.min.js"></script>
+   	<script>tinymce.init({ selector:'textarea' });</script>
     <link rel="stylesheet" href="css/reveal.css">	
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
 <script type="text/javascript" src="js/jquery.reveal.js"></script>
