@@ -1,3 +1,7 @@
+body {
+	background-color:#000000;
+	
+}
 .top-bar{
 	background-image: url("../images/menu-background.jpeg");
     background-repeat: repeat;

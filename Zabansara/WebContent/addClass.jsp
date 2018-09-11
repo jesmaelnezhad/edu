@@ -20,7 +20,7 @@
     <script src="js/tinymce/tinymce.min.js"></script>
    	<script>tinymce.init({ selector:'textarea' });</script>
 </head>
-<body>
+<body style="background-color:#000000">
 	<%
 		if (request.getParameter("termId") == null) {
 			return;
@@ -43,7 +43,7 @@
 	<%
 		if (user != null && user.role == Role.ADMIN) {
 	%>
-	<form action="<%out.print(request.getContextPath() + "/class");%>"
+	<form action="<%out.print("./class");%>"
 		onsubmit="return validateSelectors()" method="post">
 		<input type="hidden" name="command" value="add" /> <input
 			type="hidden" name="termId" value="<%out.print(termId);%>" /> <label>اضافه
@@ -192,7 +192,7 @@ int scheduleIdCounter = 1;
 		Content dayTimes = Content.fetchContent(Constants.AvailabilityContentID);
 		%>
 			<form method="post" enctype="multipart/form-data"
-		action="<%out.print(request.getContextPath());%>/availability">
+		action="./availability">
 				<input type="hidden" name="command" value="updateContent" />
 				<input type="hidden" name="termId" value="<%=termId%>" />
 			   <textarea name="availability_content"><%=dayTimes.content%>
@@ -379,7 +379,7 @@ int scheduleIdCounter = 1;
 				<a href="#" data-reveal-id="classRemoveModal_<%=termClass.id %>" class="alert button" style="margin:0px">حذف</a>
 				<div id="classRemoveModal_<%=termClass.id %>" class="reveal-modal" style="position:fixed;">
 						<form
-							action="<%out.print(request.getContextPath() + "/class");%>"
+							action="<%out.print("./class");%>"
 							method="post">
 							<input type="hidden" name="command" value="remove" /> 
 							<input type="hidden" name="classId" value="<%=termClass.id%>" />
@@ -403,7 +403,7 @@ int scheduleIdCounter = 1;
 				}
 			%>
 			<td style="padding: 2px; float: left"><a
-				href="<%out.print(request.getContextPath() + "/class.jsp?id=" + termClass.id);%>" class="success button"
+				href="<%out.print("./class.jsp?id=" + termClass.id);%>" class="success button"
 				style="margin: 0px">مشاهده</a></td>
 		</tr>
 		<%

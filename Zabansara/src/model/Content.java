@@ -42,6 +42,9 @@ public class Content {
 				int id = rs.getInt(1);
 				content = new Content(id, content_);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,6 +65,9 @@ public class Content {
 				String content = rs.getString("content");
 				contentsList.add(new Content(id, content));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,6 +87,9 @@ public class Content {
 				String content = rs.getString("content");
 				result = new Content(id, content);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,6 +105,7 @@ public class Content {
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,6 +121,7 @@ public class Content {
 			stmt.setInt(2, content.id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

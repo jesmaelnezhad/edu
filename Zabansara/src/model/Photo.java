@@ -53,6 +53,7 @@ public class Photo {
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,6 +70,7 @@ public class Photo {
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,6 +93,7 @@ public class Photo {
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

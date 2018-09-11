@@ -23,18 +23,20 @@ public class Exam {
 	public String title = "";
 	public String notes = "";
 	public int classId = 0;
+	public int price = 0;
 	public boolean isClassExam() {
 		return ((type == ExamType.MIDTERM || 
 				type == ExamType.FINAL || 
 				type == ExamType.PARTICIPATION) && classId != 0);
 	}
 	
-	public Exam(int id, ExamType type, String title, String notes, int classId) {
+	public Exam(int id, ExamType type, String title, String notes, int classId, int price) {
 		this.id = id;
 		this.type = type;
 		this.title = title;
 		this.notes = notes;
 		this.classId = classId;
+		this.price = price;
 	}
 
 	public static Exam addClassExam(int classId, ExamType type) {
@@ -46,7 +48,7 @@ public class Exam {
 		PreparedStatement stmt;
 		try {
 			stmt = conn.prepareStatement("INSERT INTO exams "
-					+ "(type, title, notes, class_id) VALUE (?, ?, ?, ?);"
+					+ "(type, title, notes, class_id, price) VALUE (?, ?, ?, ?, ?);"
 					, Statement.RETURN_GENERATED_KEYS);
 			String title = "";
 			switch (type) {
@@ -67,14 +69,16 @@ public class Exam {
 			stmt.setString(2, title);
 			stmt.setString(3, "");
 			stmt.setInt(4, classId);
+			stmt.setInt(5, 0);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
 				int id = rs.getInt(1);
-				exam = new Exam(id, type, title, "", classId);
+				exam = new Exam(id, type, title, "", classId, 0);
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,25 +86,27 @@ public class Exam {
 		return exam;
 	}
 	
-	public static Exam addGeneralExam(String title) {
+	public static Exam addGeneralExam(String title, int price) {
 		Exam exam = null;
 		Connection conn = DBManager.getDBManager().getConnection();
 		PreparedStatement stmt;
 		try {
 			stmt = conn.prepareStatement("INSERT INTO exams "
-					+ "(type, title, notes) VALUE (?, ?, ?);"
+					+ "(type, title, notes, price) VALUE (?, ?, ?, ?);"
 					, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, Exam.typeToString(ExamType.GENERAL));
 			stmt.setString(2, title);
 			stmt.setString(3, "");
+			stmt.setInt(4, price);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
 				int id = rs.getInt(1);
-				exam = new Exam(id, ExamType.GENERAL, title, "", 0);
+				exam = new Exam(id, ExamType.GENERAL, title, "", 0, price);
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,6 +120,7 @@ public class Exam {
 			PreparedStatement stmt = conn.prepareStatement("DELETE FROM exams WHERE id=?");
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -135,10 +142,11 @@ public class Exam {
 				String title = rs.getString("title");
 				String notes = rs.getString("notes");
 				
-				exam = new Exam(id, type, title==null?"":title, notes==null?"":notes, classId);
+				exam = new Exam(id, type, title==null?"":title, notes==null?"":notes, classId, 0);
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,11 +167,13 @@ public class Exam {
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
 				String notes = rs.getString("notes");
+				int price = rs.getInt("price");
 				
-				exams.add(new Exam(id, ExamType.GENERAL, title==null?"":title, notes==null?"":notes, 0));
+				exams.add(new Exam(id, ExamType.GENERAL, title==null?"":title, notes==null?"":notes, 0, price));
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -186,13 +196,17 @@ public class Exam {
 				String title = rs.getString("title");
 				String notes = rs.getString("notes");
 				int classId = 0;
-				if(type != ExamType.GENERAL) {
+				int price = 0;
+				if(type == ExamType.GENERAL) {
+					price = rs.getInt("price");
+				}else {
 					classId = rs.getInt("class_id");
 				}
-				exam = new Exam(id, type, title==null?"":title, notes==null?"":notes, classId);
+				exam = new Exam(id, type, title==null?"":title, notes==null?"":notes, classId, price);
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -204,12 +218,14 @@ public class Exam {
 		Connection conn = DBManager.getDBManager().getConnection();
 		PreparedStatement stmt;
 		try {
-			stmt = conn.prepareStatement("UPDATE exams SET title=?,notes=? WHERE id=?;");
+			stmt = conn.prepareStatement("UPDATE exams SET title=?,notes=?,price=? WHERE id=?;");
 			stmt.setString(1, exam.title);
 			stmt.setString(2, exam.notes);
-			stmt.setInt(3, exam.id);
+			stmt.setInt(3, exam.price);
+			stmt.setInt(4, exam.id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -285,7 +301,9 @@ public class Exam {
 					participants.add(new User(id, role, username, fname, lname, 
 							cellphone, email_addr, national_code, student_id, photoName, photoName2));
 				}
+				rs.close();
 				stmt.close();
+				DBManager.getDBManager().closeConnection();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -311,6 +329,7 @@ public class Exam {
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -334,6 +353,7 @@ public class Exam {
 			stmt.setInt(2, student.id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -356,6 +376,7 @@ public class Exam {
 			stmt.setInt(2, student.id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

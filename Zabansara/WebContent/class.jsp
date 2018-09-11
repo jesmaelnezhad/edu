@@ -10,23 +10,33 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html class="no-js" lang="fa" dir="rtl">
+<html lang="fa" >
 <head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>زبان‌سرا</title>
-<link rel="stylesheet" href="css/foundation.css">
-<link rel="stylesheet" href="css/app.css">
+   	<meta charset="utf-8">	
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>زبان‌سرا</title>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/tinymce/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });</script>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;direction:ltr}
-.tg td{font-family:Arial, sans-serif;font-size:12px;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center}
-.tg th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center}
-.tg .tg-yw4l{vertical-align:top}
-</style>
-<script src="js/jquery-3.3.1.min.js"></script>
+   	<script>tinymce.init({ selector:'textarea' });</script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+  	<link rel="stylesheet" href="css/reveal.css">	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+	<script type="text/javascript" src="js/jquery.reveal.js"></script>
+	
+    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+	
+	 <style type="text/css">
+	.tg  {border-collapse:collapse;border-spacing:0;direction:ltr}
+	.tg td{font-family:Arial, sans-serif;font-size:12px;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center}
+	.tg th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center}
+	.tg .tg-yw4l{vertical-align:top}
+	</style>
 <style type="text/css">
 .tg {
 	border-collapse: collapse;
@@ -122,9 +132,8 @@
 	}
 </script>
 </head>
-<body onload="onBodyLoad()">
+<body onload="onBodyLoad()" style="background-color:#000000">
 
-	<div class="grid-container">
 
 		<!-- 
       <div class="grid-x grid-padding-x">
@@ -135,15 +144,22 @@
 -->
 		<!-- --------------------------------------------- -->
 
-		<div class="large-12 medium-12 cell">
-			<%@include file="./menu_general.jsp"%>
-		</div>
+<div dir="rtl">
+	<%@include  file="./menu_general.jsp" %>
+</div>
+
+
+<!-- --------------------------------------------- -->
+    	<center>
+    	
+    	<div class="large-12 medium-12 cell" style="z-index:3;background-color:#FFFFFF;width:900px;margin-top:100px" dir="rtl">
+				<div class="callout">
 
 		<!-- ---------------------------------------------- -->
 		<%
 			request.setCharacterEncoding("UTF-8");
 			if (request.getParameter("id") == null) {
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect("./classes.jsp");
 				return;
 			}
 			int classId = Integer.parseInt(request.getParameter("id"));
@@ -153,21 +169,21 @@
 			Exam participation = Exam.fetchClassExam(classId, ExamType.PARTICIPATION);
 			if (termClass == null) {
 				request.getSession().setAttribute("message", new Message("کلاس پیدا نشد."));
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect("./classes.jsp");
 				return;
 			}
 			if (user == null) {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				response.sendRedirect("./index.jsp");
 				return;
 			}
 			if (user.role == Role.TEACHER && user.id != termClass.teacherId) {
 				request.getSession().setAttribute("message", new Message("شما به اطلاعات این کلاس دسترسی ندارید."));
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect("./classes.jsp");
 				return;
 			}
 			if (user.role == Role.STUDENT && !TermClass.isRegisterred(user.id, termClass.id)) {
 				request.getSession().setAttribute("message", new Message("شما به اطلاعات این کلاس دسترسی ندارید."));
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect("./classes.jsp");
 				return;
 			}
 		%>
@@ -239,6 +255,60 @@
 											break;
 											case 7:
 										%>روزهای فرد - بعد از ظهر - شیفت ۳<%
+											break;
+											case 18:
+										%>یکشنبه سه‌شنبه - صبح - شیفت ۱<%
+											break;
+											case 17:
+										%>یکشنبه سه‌شنبه - صبح - شیفت ۲<%
+											break;
+											case 16:
+										%>یکشنبه سه‌شنبه - صبح - شیفت ۳<%
+											break;
+											case 15:
+										%>یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۱<%
+											break;
+											case 14:
+										%>یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۲<%
+											break;
+											case 13:
+										%>یکشنبه سه‌شنبه - بعد از ظهر - شیفت ۳<%
+											break;
+											case 24:
+										%>شنبه چهارشنبه - صبح - شیفت ۱<%
+											break;
+											case 23:
+										%>شنبه چهارشنبه - صبح - شیفت ۲<%
+											break;
+											case 22:
+										%>شنبه چهارشنبه - صبح - شیفت ۳<%
+											break;
+											case 21:
+										%>شنبه چهارشنبه - بعد از ظهر - شیفت ۱<%
+											break;
+											case 20:
+										%>شنبه چهارشنبه - بعد از ظهر - شیفت ۲<%
+											break;
+											case 19:
+										%>شنبه چهارشنبه - بعد از ظهر - شیفت ۳<%
+											break;
+											case 30:
+										%>پنج‌شنبه جمعه - صبح - شیفت ۱<%
+											break;
+											case 29:
+										%>پنج‌شنبه جمعه - صبح - شیفت ۲<%
+											break;
+											case 28:
+										%>پنج‌شنبه جمعه - صبح - شیفت ۳<%
+											break;
+											case 27:
+										%>پنج‌شنبه جمعه - بعد از ظهر - شیفت ۱<%
+											break;
+											case 26:
+										%>پنج‌شنبه جمعه - بعد از ظهر - شیفت ۲<%
+											break;
+											case 25:
+										%>پنج‌شنبه جمعه - بعد از ظهر - شیفت ۳<%
 											break;
 											}
 										%>
@@ -335,7 +405,7 @@
 						if(user.role == Role.TEACHER){
 							%>
 							<h5>مطالب صفحه‌ی کلاس:</h5>
-							<form method="post" action="<%out.print(request.getContextPath()); %>/class">
+							<form method="post" action="./class">
 							<input type="hidden" name="command" value="editContent"></input>
 							<input type="hidden" name="classId" value="<%out.print(termClass.id);%>"></input>
 							<div class="callout" style="padding: 5px; border: none">
@@ -375,11 +445,36 @@
 
 
 
-	</div>
+	</div></div></center>
 
 	<script src="js/vendor/jquery.js"></script>
 	<script src="js/vendor/what-input.js"></script>
 	<script src="js/vendor/foundation.js"></script>
 	<script src="js/app.js"></script>
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+    <!-- Live Chat Code :: Start of Tawk.to Script -->
+    <script>
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5b55ea72df040c3e9e0bdf85/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
 </body>
 </html>

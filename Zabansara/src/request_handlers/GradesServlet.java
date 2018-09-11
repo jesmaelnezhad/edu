@@ -47,13 +47,13 @@ public class GradesServlet extends HttpServlet {
 		// Set response content type
 		String command = (String) request.getParameter("command");
 		if(request.getParameter("examId") == null) {
-			response.sendRedirect(request.getContextPath() + "/exams.jsp");
+			response.sendRedirect("./exams.jsp");
 			return;
 		}
 		int examId = Integer.parseInt(request.getParameter("examId"));
 		Exam exam = Exam.fetchExam(examId);
 		if(exam == null) {
-			response.sendRedirect(request.getContextPath() + "/exams.jsp");
+			response.sendRedirect("./exams.jsp");
 			return;	
 		}
 		
@@ -73,14 +73,14 @@ public class GradesServlet extends HttpServlet {
 			request.getSession().setAttribute("message", new Message("نمرات با موفقیت آپدیت شد." , "green"));
 			if(request.getParameter("classId") != null) {
 				int classId = Integer.parseInt(request.getParameter("classId"));
-				response.sendRedirect(request.getContextPath() + "/class.jsp?id="+classId);
+				response.sendRedirect("./class.jsp?id="+classId);
 				return;
 			}else {
-				response.sendRedirect(request.getContextPath() + "/exams.jsp");
+				response.sendRedirect("./exams.jsp");
 				return;				
 			}
 		}
-		response.sendRedirect(request.getContextPath() + "/exams.jsp");
+		response.sendRedirect("./exams.jsp");
 		return;
 	}
 

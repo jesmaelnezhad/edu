@@ -83,7 +83,7 @@ public class ClassServlet extends HttpServlet {
 			}
 			request.getSession().setAttribute("selected_termId", termId);
 
-			response.sendRedirect(request.getContextPath() + "/classes.jsp");
+			response.sendRedirect("./classes.jsp");
 			return;
 		}
 		
@@ -94,7 +94,7 @@ public class ClassServlet extends HttpServlet {
 			if(! result) {
 				request.getSession().setAttribute("message", new Message("مطلب کلاسی آپدیت نشد.", "red"));
 			}
-			response.sendRedirect(request.getContextPath() + "/class.jsp?id=" + classId);
+			response.sendRedirect("./class.jsp?id=" + classId);
 			return;
 		}
 		
@@ -102,7 +102,7 @@ public class ClassServlet extends HttpServlet {
 			
 			if(request.getParameter("classId") == null || request.getParameter("termId") == null) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect("./classes.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("classId"));
@@ -110,7 +110,7 @@ public class ClassServlet extends HttpServlet {
 			TermClass.removeClass(id);
 			request.getSession().setAttribute("selected_termId", termId);
 			request.getSession().setAttribute("message", new Message("كلاس با موفقیت حذف شد.", "green"));
-			response.sendRedirect(request.getContextPath() + "/classes.jsp");
+			response.sendRedirect("./classes.jsp");
 			return;
 		}
 

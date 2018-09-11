@@ -10,7 +10,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html class="no-js" lang="fa" dir="rtl">
+<html lang="fa">
 <%
 request.setCharacterEncoding("UTF-8");
 if (request.getParameter("examId") == null) {
@@ -29,7 +29,7 @@ if (request.getParameter("classId") != null) {
 	classId = Integer.parseInt(request.getParameter("classId"));
 }
 %>
-<form method="post" action="<%out.print(request.getContextPath()); %>/grades">
+<form method="post" action="./grades">
 <input type="hidden" name="command" value="update"/>
 <input type="hidden" name="examId" value="<%=examId%>"/>
 <%if(classId != 0){ %>

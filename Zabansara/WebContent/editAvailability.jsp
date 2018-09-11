@@ -15,7 +15,7 @@ String[] ScheduleTitles = Constants.ScheduleTitles;
 int scheduleIdCounter = 1;
 if(user != null && user.role == Role.TEACHER){
 %>
-						<form method="post" action="<%out.print(request.getContextPath()); %>/availability">
+						<form method="post" action="./availability">
 						<input type="hidden" name="command" value="edit"></input>
 						<input type="hidden" name="termId" value="<%out.print(term.id);%>"></input>
 							<h3>

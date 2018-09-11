@@ -64,7 +64,9 @@ public class Grade {
 				String notes = rs.getString("notes");
 				grade = new Grade(studentId, gradeVal, notes==null?"":notes);
 			}
+			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,6 +103,7 @@ public class Grade {
 
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

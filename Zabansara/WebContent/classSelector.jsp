@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
+<body style="background-color:#000000">
 <%
 String [] ScheduleTitles = Constants.ScheduleTitles;
 int scheduleIdCounter = 1;
@@ -68,7 +68,7 @@ int scheduleIdCounter = 1;
 					for(TermClass c: termClasses){
 						User teacher = User.fetchUser(c.teacherId);
 						%>
-							<a class="button" style="padding:5px;margin:5px"  href="register?classId=<%out.print(c.id); %>" >
+							<a class="button" style="padding:5px;margin:5px"  href="./payment.jsp?classId=<%out.print(c.id); %>" >
 							<%out.print(teacher.lname); %> - <%out.print(TermClass.getClassSize(c.id)); %>
 							</a>
 						<%

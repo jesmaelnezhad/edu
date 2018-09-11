@@ -51,7 +51,7 @@ public class NewsServlet extends HttpServlet {
 				if(newsContent != null && newsContent != "") {
 					request.getSession().setAttribute("news_content", newsContent);
 				}
-				response.sendRedirect(request.getContextPath() + "/news.jsp");
+				response.sendRedirect("./news.jsp");
 				return;
 			}
 			if(photoFile != null) {
@@ -64,7 +64,7 @@ public class NewsServlet extends HttpServlet {
 		}else if("remove".equals(command)) {
 			if(request.getParameter("newsId") == null) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/news.jsp");
+				response.sendRedirect("./news.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("newsId"));
@@ -74,14 +74,14 @@ public class NewsServlet extends HttpServlet {
 			
 			if(request.getParameter("newsId") == null ) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/news.jsp");
+				response.sendRedirect("./news.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("newsId"));
 			News news = News.fetchNews(id);
 			if(news == null) {
 				request.getSession().setAttribute("message", new Message("مطلب یافت نشد."));
-				response.sendRedirect(request.getContextPath() + "/news.jsp");
+				response.sendRedirect("./news.jsp");
 				return;
 			}
 			
@@ -89,7 +89,7 @@ public class NewsServlet extends HttpServlet {
 			Part photoFile = request.getPart("photo_file");
 			String newsContent = (String) request.getParameter("news_content");
 			if(title == null || title == "") {
-				response.sendRedirect(request.getContextPath() + "/news.jsp");
+				response.sendRedirect("./news.jsp");
 				return;
 			}
 			news.title = title;
@@ -104,12 +104,12 @@ public class NewsServlet extends HttpServlet {
 			}
 
 			request.getSession().setAttribute("message", new Message("مطلب با موفقیت تغییر یافت.", "green"));
-			response.sendRedirect(request.getContextPath() + "/news.jsp");
+			response.sendRedirect("./news.jsp");
 			return;
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/news.jsp");
+		response.sendRedirect("./news.jsp");
 		return;
 	}
 

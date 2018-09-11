@@ -19,12 +19,14 @@ public class DBManager {
 	private static final String PASS = "zabansaraadminpassword";
 	//
 	private Connection conn = null;
+	private int connectionUsersCount = 1;
 	//
 	private DBManager() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			// Open a connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			connectionUsersCount = 1;
 			Statement stmt = conn.createStatement();
 			stmt.executeQuery("SET NAMES utf8");
 			stmt.close();
@@ -43,6 +45,7 @@ public class DBManager {
 				Class.forName("com.mysql.jdbc.Driver");
 				// Open a connection
 				conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				connectionUsersCount = 1;
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -50,8 +53,26 @@ public class DBManager {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			connectionUsersCount ++;
 		}
 		return conn;
+	}
+	public void closeConnection() {
+		if(conn != null) {
+			if(connectionUsersCount > 1) {
+				connectionUsersCount --;
+			}else {
+				try {
+					conn.close();
+					conn = null;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					conn = null;
+				}
+			}
+		}
 	}
 	
 	

@@ -34,11 +34,11 @@ public class SignOutServlet extends HttpServlet {
 		// make sure no other user is signed in.
 		if(User.isCurrentUserSecondary(request.getSession())) {
 			User.removeSecondaryUser(request.getSession());
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;
 		}
 		User.removeCurrentUser(request.getSession());
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+		response.sendRedirect("./index.jsp");
 		return;
 	}
 

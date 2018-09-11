@@ -56,14 +56,14 @@ public class TermsServlet extends HttpServlet {
 					|| finalsStart == null || finalsStart.equals("")
 					|| termEnd == null || termEnd.equals("")) {
 				request.getSession().setAttribute("message", new Message("اطلاعات ترم را کامل وارد کنید."));
-				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				response.sendRedirect("./terms.jsp");
 				return;
 			}
 			Term newTerm = Term.addTerm(title, termStart, classesStart, finalsStart, termEnd);
 		}else if("remove".equals(command)) {
 			if(request.getParameter("termId") == null) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				response.sendRedirect("./terms.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("termId"));
@@ -73,7 +73,7 @@ public class TermsServlet extends HttpServlet {
 			
 			if(request.getParameter("termId") == null ) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				response.sendRedirect("./terms.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("termId"));
@@ -89,14 +89,14 @@ public class TermsServlet extends HttpServlet {
 					|| finalsStart == null || finalsStart.equals("")
 					|| termEnd == null || termEnd.equals("")) {
 				request.getSession().setAttribute("message", new Message("اطلاعات ترم را کامل وارد کنید."));
-				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				response.sendRedirect("./terms.jsp");
 				return;
 			}
 			
 			Term term = Term.fetchTerm(id);
 			if(term == null) {
 				request.getSession().setAttribute("message", new Message("ترم یافت نشد."));
-				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+				response.sendRedirect("./terms.jsp");
 				return;
 			}
 			term.title = title;
@@ -106,12 +106,12 @@ public class TermsServlet extends HttpServlet {
 			term.termEnd = termEnd;
 			Term.updateTerm(term);
 			request.getSession().setAttribute("message", new Message("ترم با موفقیت تغییر یافت.", "green"));
-			response.sendRedirect(request.getContextPath() + "/terms.jsp");
+			response.sendRedirect("./terms.jsp");
 			return;
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/terms.jsp");
+		response.sendRedirect("./terms.jsp");
 		return;
 	}
 

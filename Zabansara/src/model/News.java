@@ -50,6 +50,9 @@ public class News {
 				int id = rs.getInt(1);
 				news = new News(id, title, content, photoName);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,6 +75,9 @@ public class News {
 				String photoName = rs.getString("photo_name");
 				newsList.add(new News(id, title, content, photoName));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,6 +99,9 @@ public class News {
 				String photoName = rs.getString("photo_name");
 				result = new News(id, title, content, photoName);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,6 +117,7 @@ public class News {
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,6 +135,7 @@ public class News {
 			stmt.setInt(4, news.id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

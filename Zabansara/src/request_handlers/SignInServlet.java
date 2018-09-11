@@ -39,17 +39,17 @@ public class SignInServlet extends HttpServlet {
 	    if(request.getParameter("secondaryLogin") != null) {
 	    	User loginUser = User.getCurrentUser(request.getSession());
 	    	if(loginUser == null || loginUser.role != Role.ADMIN) {
-				response.sendRedirect(request.getContextPath() + "/signin.jsp");
+				response.sendRedirect("./signin.jsp");
 				return;
 	    	}
 	    	if(request.getParameter("userId") == null) {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				response.sendRedirect("./index.jsp");
 				return;	    		
 	    	}
 	    	int userId = Integer.parseInt(request.getParameter("userId"));
 	    	User secondaryUser = User.fetchUser(userId);
 	    	User.setSecondaryUser(request.getSession(), secondaryUser);
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;	    
 	    }
     }
@@ -66,7 +66,7 @@ public class SignInServlet extends HttpServlet {
 		String username = (String) request.getParameter("username");
 		String password = (String) request.getParameter("password");
 		if(username == null || username == "" || password == "" || password == null) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;
 		}
 		
@@ -77,11 +77,11 @@ public class SignInServlet extends HttpServlet {
 		User newUser = User.fetchUser(username, password);
 		if(newUser == null) {
 			request.getSession().setAttribute("message", new Message("رمز عبور یا نام کاربری اشتباه است."));
-			response.sendRedirect(request.getContextPath() + "/signin.jsp");
+			response.sendRedirect("./signin.jsp");
 			return;
 		}
 		User.setCurrentUser(request.getSession(), newUser);
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+		response.sendRedirect("./index.jsp");
 		return;
 	}
 

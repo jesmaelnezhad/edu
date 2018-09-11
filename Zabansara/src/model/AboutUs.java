@@ -47,6 +47,9 @@ public class AboutUs {
 				int id = rs.getInt(1);
 				aboutus = new AboutUs(id, menu_item, photoName);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,6 +71,9 @@ public class AboutUs {
 				String photoName = rs.getString("photo_name");
 				aboutusList.add(new AboutUs(id, menu_item, photoName));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,6 +94,9 @@ public class AboutUs {
 				String photoName = rs.getString("photo_name");
 				result = new AboutUs(id, menu_item, photoName);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,6 +112,7 @@ public class AboutUs {
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,6 +129,7 @@ public class AboutUs {
 			stmt.setInt(3, aboutus.id);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -41,7 +41,7 @@ public class PhotosServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		if(request.getParameter("command") == null) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;
 		}
 		String command = (String) request.getParameter("command");
@@ -51,7 +51,7 @@ public class PhotosServlet extends HttpServlet {
 			Part image = request.getPart("image");
 
 			if(title == null || image == null) {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				response.sendRedirect("./index.jsp");
 				return;
 			}
 			Photo newPhoto = Photo.insertNewPhoto(image.getSubmittedFileName(), title);
@@ -64,7 +64,7 @@ public class PhotosServlet extends HttpServlet {
 		}else if("remove".equals(command)) {
 			if(request.getParameter("photoId") == null) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				response.sendRedirect("./index.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("photoId"));
@@ -73,7 +73,7 @@ public class PhotosServlet extends HttpServlet {
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+		response.sendRedirect("./index.jsp");
 		return;
 	}
 

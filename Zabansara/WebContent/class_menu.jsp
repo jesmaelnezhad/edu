@@ -12,7 +12,7 @@ if(request.getParameter("classId") == null){
 int classId = Integer.parseInt(request.getParameter("classId"));
 if(user == null){
 		if (user == null) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;
 		}
 } else if (user.role == Role.ADMIN) {

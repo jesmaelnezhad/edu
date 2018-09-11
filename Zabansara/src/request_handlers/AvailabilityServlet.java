@@ -46,12 +46,12 @@ public class AvailabilityServlet extends HttpServlet {
 		String command = (String) request.getParameter("command");
 		
 		if(request.getParameter("termId") == null) {
-			response.sendRedirect(request.getContextPath() + "/availability.jsp");
+			response.sendRedirect("./availability.jsp");
 			return;
 		}
 		User user = User.getCurrentUser(request.getSession());
 		if(user == null || user.role == Role.STUDENT) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;			
 		}
 		int termId = Integer.parseInt((String)request.getParameter("termId"));
@@ -69,18 +69,18 @@ public class AvailabilityServlet extends HttpServlet {
 			String content = request.getParameter("availability_content");
 			if(content == null) {
 				request.getSession().setAttribute("selected_termId", termId);
-				response.sendRedirect(request.getContextPath() + "/classes.jsp");
+				response.sendRedirect("./classes.jsp");
 				return;
 			}
 			Content newContent = new Content(Constants.AvailabilityContentID, content);
 			Content.updateContent(newContent);
 			request.getSession().setAttribute("selected_termId", termId);
-			response.sendRedirect(request.getContextPath() + "/classes.jsp");
+			response.sendRedirect("./classes.jsp");
 			return;
 		}
 
 		request.getSession().setAttribute("selected_termId", termId);
-		response.sendRedirect(request.getContextPath() + "/availability.jsp");
+		response.sendRedirect("./availability.jsp");
 		return;
 	}
 

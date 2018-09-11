@@ -75,6 +75,9 @@ public class TermClass {
 				int id = rs.getInt(1);
 				newClass = new TermClass(id, termId, teacherId, gender, levelId, scheduleId, notes, "");
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,6 +91,8 @@ public class TermClass {
 			PreparedStatement stmt = conn.prepareStatement("DELETE FROM classes WHERE id=?");
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,6 +125,9 @@ public class TermClass {
 				String content = rs.getString("content");
 				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -178,6 +186,9 @@ public class TermClass {
 				String content = rs.getString("content");
 				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,6 +222,9 @@ public class TermClass {
 				String content = rs.getString("content");
 				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -248,6 +262,9 @@ public class TermClass {
 				String content = rs.getString("content");
 				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -283,6 +300,9 @@ public class TermClass {
 				String content = rs.getString("content");
 				fetchedClass = new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content);
 			}
+			rs.close();
+			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -311,6 +331,7 @@ public class TermClass {
 			stmt.executeUpdate();
 			inserted = true;
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -338,6 +359,7 @@ public class TermClass {
 			stmt.setInt(2, classId);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -380,7 +402,9 @@ public class TermClass {
 				participants.add(new User(id, role, username, fname, lname, 
 						cellphone, email_addr, national_code, student_id, photoName, photoName2));
 			}
+			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -402,6 +426,7 @@ public class TermClass {
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -423,6 +448,7 @@ public class TermClass {
 			}
 			rs.close();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -442,6 +468,7 @@ public class TermClass {
 			stmt.setInt(2, classId);
 			stmt.executeUpdate();
 			stmt.close();
+			DBManager.getDBManager().closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -48,7 +48,7 @@ public class AboutUsServlet extends HttpServlet {
 			String menu_item = (String) request.getParameter("menu_item");
 			Part photoFile = request.getPart("photo_file");
 			if(menu_item == null || menu_item == "") {
-				response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+				response.sendRedirect("./aboutus.jsp");
 				return;
 			}
 			if(photoFile != null) {
@@ -57,13 +57,13 @@ public class AboutUsServlet extends HttpServlet {
 			    Photo.savePhoto("aboutus", aboutus.id, photoFile, getServletContext());
 			}else {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+				response.sendRedirect("./aboutus.jsp");
 				return;	
 			}
 		}else if("remove".equals(command)) {
 			if(request.getParameter("aboutusId") == null) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+				response.sendRedirect("./aboutus.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("aboutusId"));
@@ -73,21 +73,21 @@ public class AboutUsServlet extends HttpServlet {
 			
 			if(request.getParameter("aboutusId") == null ) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+				response.sendRedirect("./aboutus.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("aboutusId"));
 			AboutUs aboutus = AboutUs.fetchAboutUs(id);
 			if(aboutus == null) {
 				request.getSession().setAttribute("message", new Message("درباره ما یافت نشد."));
-				response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+				response.sendRedirect("./aboutus.jsp");
 				return;
 			}
 			
 			String menu_item = (String) request.getParameter("menu_item");
 			Part photoFile = request.getPart("photo_file");
 			if(menu_item == null || menu_item == "") {
-				response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+				response.sendRedirect("./aboutus.jsp");
 				return;
 			}
 			aboutus.menu_item = menu_item;
@@ -101,12 +101,12 @@ public class AboutUsServlet extends HttpServlet {
 			}
 
 			request.getSession().setAttribute("message", new Message("درباره ما با موفقیت تغییر یافت.", "green"));
-			response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+			response.sendRedirect("./aboutus.jsp");
 			return;
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/aboutus.jsp");
+		response.sendRedirect("./aboutus.jsp");
 		return;
 	}
 

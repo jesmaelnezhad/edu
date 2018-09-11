@@ -46,7 +46,7 @@ public class ProfileServlet extends HttpServlet {
 //			if(newsContent != null && newsContent != "") {
 //				request.getSession().setAttribute("news_content", newsContent);
 //			}
-//			response.sendRedirect(request.getContextPath() + "/news.jsp");
+//			response.sendRedirect("./news.jsp");
 //			return;
 //		}
 		
@@ -54,7 +54,7 @@ public class ProfileServlet extends HttpServlet {
 			
 			User user = User.getCurrentUser(request.getSession());
 			if(user == null) {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				response.sendRedirect("./index.jsp");
 				return;
 			}
 			String password = (String) request.getParameter("current_password");
@@ -63,7 +63,7 @@ public class ProfileServlet extends HttpServlet {
 			if((! User.isCurrentUserSecondary(request.getSession()) && password==null) || newPassword == null || newPassword2 == null ||
 					!newPassword.equals(newPassword2)) {
 				request.getSession().setAttribute("message", new Message("لطفا دوباره امتحان کنید."));
-				response.sendRedirect(request.getContextPath() + "/profile.jsp");
+				response.sendRedirect("./profile.jsp");
 				return;
 			}
 			User tryLoginUser = null;
@@ -75,7 +75,7 @@ public class ProfileServlet extends HttpServlet {
 
 			if(tryLoginUser == null) {
 				request.getSession().setAttribute("message", new Message("نام کاربری یا رمز عبور اشتباه است"));
-				response.sendRedirect(request.getContextPath() + "/profile.jsp");
+				response.sendRedirect("./profile.jsp");
 				return;
 			}
 			User.updatePassword(tryLoginUser, newPassword);
@@ -83,7 +83,7 @@ public class ProfileServlet extends HttpServlet {
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/profile.jsp");
+		response.sendRedirect("./profile.jsp");
 		return;
 	}
 

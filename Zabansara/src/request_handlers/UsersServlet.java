@@ -44,7 +44,7 @@ public class UsersServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		User user = User.getCurrentUser(request.getSession());
 		if(user == null || user.role != Role.ADMIN) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect("./index.jsp");
 			return;
 		}
 		// Set response content type
@@ -90,19 +90,19 @@ public class UsersServlet extends HttpServlet {
 		}else if("remove".equals(command)) {
 			if(request.getParameter("userId") == null) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/users.jsp");
+				response.sendRedirect("./users.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("userId"));
 			User.deleteUser(id);
 			request.getSession().setAttribute("message", new Message("کاربر با موفقیت حذف شد.", "green"));
-			response.sendRedirect(request.getContextPath() + "/users.jsp");
+			response.sendRedirect("./users.jsp");
 			return;
 		}else if("update".equals(command)) {
 			
 			if(request.getParameter("userId") == null ) {
 				request.getSession().setAttribute("message", new Message("اطلاعات کافی نیست."));
-				response.sendRedirect(request.getContextPath() + "/users.jsp");
+				response.sendRedirect("./users.jsp");
 				return;
 			}
 			int id = Integer.parseInt(request.getParameter("userId"));
@@ -129,14 +129,14 @@ public class UsersServlet extends HttpServlet {
 
 //			if(title == null || title.equals("")) {
 //				request.getSession().setAttribute("message", new Message("اطلاعات سطح را کامل وارد کنید."));
-//				response.sendRedirect(request.getContextPath() + "/terms.jsp");
+//				response.sendRedirect("./terms.jsp");
 //				return;
 //			}
 			
 			User changeUser = User.fetchUser(id);
 			if(changeUser == null) {
 				request.getSession().setAttribute("message", new Message("كاربر یافت نشد."));
-				response.sendRedirect(request.getContextPath() + "/users.jsp");
+				response.sendRedirect("./users.jsp");
 				return;
 			}
 			changeUser.role = role;
@@ -167,12 +167,12 @@ public class UsersServlet extends HttpServlet {
 				Photo.savePhoto("users", id, idImagePart, request.getServletContext());
 			}
 			request.getSession().setAttribute("message", new Message("کاربر با موفقیت تغییر یافت.", "green"));
-			response.sendRedirect(request.getContextPath() + "/users.jsp");
+			response.sendRedirect("./users.jsp");
 			return;
 		}
 
 
-		response.sendRedirect(request.getContextPath() + "/users.jsp");
+		response.sendRedirect("./users.jsp");
 		return;
 	}
 

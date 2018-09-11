@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>7Learn.com - Contact Icons Animation</title>
+	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css">
+	<style type="text/css">
+		/*http://codepen.io/YoannM/pen/qHiod*/
+		body,
+		html {
+		  width: 100%;
+		  height: 100%;
+		  padding: 0;
+		  margin: 0;
+		  overflow: auto;
+		  background: #000;
+		}
+
+		#wrapper {
+		  position: absolute;
+		  width: 100%;
+		  height: 100px;
+		  padding: 0;
+		  margin: 0;
+		  text-align: center;
+		  top: 50%;
+		  margin-top: -50px;
+		}
+
+		.bt_wrap {
+		  display: inline-block;
+		  width: auto;
+		  height: auto;
+		  background: #16161a;
+		  width: 100px;
+		  height: 100px;
+		  cursor: pointer;
+		  perspective: 200px;
+		  transition: background 0.2s ease-out;
+		}
+
+		.box {
+		  position: absolute;
+		  perspective-origin: 50px 50px;
+		  transform-origin: 50px 50px;
+		  transition: transform 0.2s ease-out;
+		  transform-style: preserve-3d;
+		}
+
+		.icon,
+		.icon2 {
+		  position: absolute;
+		  top: 0;
+		  left: 20px;
+		  margin-top: 20px;
+		  background: #16161a;
+		  color: #ffffff;
+		  width: 60px;
+		  height: 60px;
+		  font-size: 2em;
+		  line-height: 60px;
+		  transition: background 0.2s ease-out;
+		  transform: translate3d(0px, 0px, 30px) rotateY(0deg);
+		}
+
+		.icon2 {
+		  background: #464646;
+		  transform: translate3d(29px, 0px, 0px) rotateY(90deg);
+		  transition: background 0.2s ease-out;
+		}
+
+		.bt_wrap:hover {
+		  background: #118bdc;
+		}
+
+		.bt_wrap:hover .icon {
+		  background: #464646;
+		}
+
+		.bt_wrap:hover .icon2 {
+		  background: #16161a;
+		}
+
+		.bt_wrap:hover .box {
+		  transform: rotateY(-90deg);
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+	  <div class="bt_wrap">
+	    <div class="box">
+	      <i class="icon fa fa-phone"></i>
+	      <i class="icon2 fa fa-phone"></i>
+	    </div>
+	  </div>
+	  <div class="bt_wrap">
+	    <div class="box">
+	      <i class="icon fa fa-envelope"></i>
+	      <i class="icon2 fa fa-envelope"></i>
+	    </div>
+	  </div>
+	  <div class="bt_wrap">
+	    <div class="box">
+	      <i class="icon fa fa-twitter"></i>
+	      <i class="icon2 fa fa-twitter"></i>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>
