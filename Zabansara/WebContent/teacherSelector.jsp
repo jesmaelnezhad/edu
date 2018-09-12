@@ -8,7 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body style="background-color:#000000">
+<body style="background-color:#e9e8e8">
+<div style="background-image:url('./images/background.jpg');width:1300px;height:100%">
 <option value="0">انتخاب استاد</option>
 <%
 if(request.getParameter("termId") == null || request.getParameter("scheduleSelector") == null){
@@ -21,6 +22,6 @@ for(User teacher : teachers){
 	%><option value="<%out.print(teacher.id); %>"><%out.print(teacher.fname + " " + teacher.lname); %></option><%		
 }
 %>
-
+</div>
 </body>
 </html>

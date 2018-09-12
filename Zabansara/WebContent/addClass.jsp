@@ -20,7 +20,7 @@
     <script src="js/tinymce/tinymce.min.js"></script>
    	<script>tinymce.init({ selector:'textarea' });</script>
 </head>
-<body style="background-color:#000000">
+<body style="background-color:#e9e8e8">
 	<%
 		if (request.getParameter("termId") == null) {
 			return;

@@ -1,5 +1,7 @@
 body {
-	background-color:#000000;
+	background-image: url("../images/top_background.jpg");
+    background-repeat: no-repeat;
+	background-color:#e9e8e8;
 	
 }
 .top-bar{
@@ -34,14 +36,11 @@ position: fixed;
 }
 
 .grid-container{
-    background-image: url("../images/background.jpg");
-    background-repeat: repeat;
+    background-color:#e9e8e8
 }
 .grid-x{
-    background-image: url("../images/background.jpg");
-    background-repeat: repeat;
+	background-color:#e9e8e8
 }
 .callout{
-    background-image: url("../images/background.jpg");
-    background-repeat: repeat;
+    background-color:#e9e8e8
 }

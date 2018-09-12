@@ -132,7 +132,7 @@
 	}
 </script>
 </head>
-<body onload="onBodyLoad()" style="background-color:#000000">
+<body onload="onBodyLoad()" style="background-color:#e9e8e8">
 
 
 		<!-- 
@@ -150,10 +150,11 @@
 
 
 <!-- --------------------------------------------- -->
+<div style="background-image:url('./images/background.jpg');width:1300px;height:100%">
     	<center>
     	
-    	<div class="large-12 medium-12 cell" style="z-index:3;background-color:#FFFFFF;width:900px;margin-top:100px" dir="rtl">
-				<div class="callout">
+    	<div class="large-12 medium-12 cell" style="z-index:3;background-color:#FFFFFF;width:900px;margin-top:100px;border:none;" dir="rtl">
+				<div class="callout" style="border:none;">
 
 		<!-- ---------------------------------------------- -->
 		<%
@@ -446,6 +447,7 @@
 
 
 	</div></div></center>
+	</div>
 
 	<script src="js/vendor/jquery.js"></script>
 	<script src="js/vendor/what-input.js"></script>

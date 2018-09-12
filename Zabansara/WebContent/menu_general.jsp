@@ -16,7 +16,7 @@ if(user == null){
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="fitness-main-menu">
-            <div class="classy-nav-container breakpoint-off">
+            <div class="classy-nav-container breakpoint-off" style="background-image: url('../images/top_background.jpg');">
                 <div class="container">
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="fitnessNav">
@@ -40,7 +40,7 @@ if(user == null){
                             <!-- Nav Start -->
                             <div class="classynav">
                              	<!-- Call Button -->
-                                <a type="button" class="button" >زبانسرا</a>
+                                <a type="button" class="button" style="background-color:#dddddd">زبانسرا</a>
                                 <ul>
                                     <li><a href="./index.jsp">صفحه‌ی اصلی</a></li>
 									<li><a href="./policies.jsp">قوانین و مقررات</a></li>
@@ -74,7 +74,7 @@ if(user == null){
                             <!-- Nav End -->
                         </div>
                     
-                    	<a type="button" class="button" href="signin.jsp" >ورود به سایت</a>
+                    	<a type="button" class="button" href="signin.jsp" style="background-color:#dddddd" >ورود به سایت</a>
                     </nav>
                 </div>
             </div>
@@ -88,7 +88,7 @@ if(user == null){
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="fitness-main-menu">
-            <div class="classy-nav-container breakpoint-off">
+            <div class="classy-nav-container breakpoint-off" style="background-image: url('../images/top_background.jpg');">
                 <div class="container">
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="fitnessNav">
@@ -187,7 +187,7 @@ if(user == null){
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="fitness-main-menu">
-            <div class="classy-nav-container breakpoint-off">
+            <div class="classy-nav-container breakpoint-off" style="background-image: url('../images/top_background.jpg');">
                 <div class="container">
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="fitnessNav">
@@ -280,7 +280,7 @@ if(user == null){
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="fitness-main-menu">
-            <div class="classy-nav-container breakpoint-off">
+            <div class="classy-nav-container breakpoint-off" style="background-image: url('../images/top_background.jpg');">
                 <div class="container">
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="fitnessNav">
