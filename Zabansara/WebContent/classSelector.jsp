@@ -67,11 +67,19 @@ int scheduleIdCounter = 1;
 					List<TermClass> termClasses = TermClass.searchClasses(scheduleId, termId, levelId, gender);
 					for(TermClass c: termClasses){
 						User teacher = User.fetchUser(c.teacherId);
+						if(TermClass.isClassFull(c.id)){
+						%>
+							<a class="button" title="ظرفیت کلاس پر است" style="padding:5px;margin:5px;disabled:true;" >
+							<%out.print(teacher.lname); %> - <%out.print(TermClass.getClassSize(c.id)); %> - Full
+							</a>						
+						<%
+						}else{
 						%>
 							<a class="button" style="padding:5px;margin:5px"  href="./payment.jsp?classId=<%out.print(c.id); %>" >
 							<%out.print(teacher.lname); %> - <%out.print(TermClass.getClassSize(c.id)); %>
 							</a>
 						<%
+						}
 					}
 					%>
 				</td>

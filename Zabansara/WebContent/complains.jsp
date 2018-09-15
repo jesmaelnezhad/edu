@@ -66,7 +66,7 @@
 		لطفا برای ثبت شکایات با شماره تلفن زیر تماس گرفته یا از طریق آدرس زیر به آموزشگاه زبان‌سرا مراجعه فرمایید.
 	</p>
 	<table>
-		<tr style="background-color: #ffd23f;">
+		<tr style="background-color: #FFFFFF;">
 			<td><b>
 				شماره تماس
 			</b></td>
@@ -74,7 +74,7 @@
 				۳۲۳۶۰۴۰۷ / ۳۲۳۶۰۴۰۸ / ۰۹۱۷۹۶۸۷۵۰۹ 
 			</td>
 		</tr>
-		<tr style="background-color: #ffd23f;">
+		<tr style="background-color: #FFFFFF;">
 			<td><b>
 				آدرس
 			</b></td>

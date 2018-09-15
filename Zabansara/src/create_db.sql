@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS classes
 	gender ENUM('boys','girls', 'both') NOT NULL DEFAULT 'boys',
 	level_id INT NOT NULL,
 	schedule_id INT NOT NULL,
+	size INT NOT NULL DEFAULT 8,
 	notes VARCHAR(200) NOT NULL,
 	content LONGTEXT NOT NULL,
 	PRIMARY KEY(id),

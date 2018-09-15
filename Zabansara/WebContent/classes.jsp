@@ -87,6 +87,10 @@
 			document.getElementById("addClassMessage").innerHTML = "<label style=\"color:red\">سطح را انتخاب کنید</label>";
 			return false;
 		}
+		if(document.getElementById("sizeSelectorInput").value == 0){
+			document.getElementById("addClassMessage").innerHTML = "<label style=\"color:red\">ظرفیت کلاس را انتخاب کنید</label>";
+			return false;
+		}
 		return true;
 	}
 </script>

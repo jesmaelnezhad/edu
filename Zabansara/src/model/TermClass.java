@@ -26,30 +26,32 @@ public class TermClass {
 	public Gender gender;
 	public int levelId;
 	public int scheduleId;
+	public int size;
 	public String note;
 	public String content;
 	
 	public TermClass(int id, int termId, int teacherId, Gender gender, 
-			int levelId, int scheduleId, String note, String content) {
+			int levelId, int scheduleId, int size, String note, String content) {
 		this.id = id;
 		this.termId = termId;
 		this.teacherId = teacherId;
 		this.gender = gender;
 		this.levelId = levelId;
 		this.scheduleId = scheduleId;
+		this.size = size;
 		this.note = note;
 		this.content = content;
 	}
 
 	public static TermClass addClass(int termId, int teacherId, 
-			Gender gender, int levelId, int scheduleId, String notes) {
+			Gender gender, int levelId, int scheduleId, int size, String notes) {
 		
 		TermClass newClass = null;
 		
 		Connection conn = DBManager.getDBManager().getConnection();
 		try {
-			PreparedStatement stmt = conn.prepareStatement("INSERT INTO classes (term_id, teacher_id, gender, level_id, schedule_id, notes, content) "
-					+ "VALUE (?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = conn.prepareStatement("INSERT INTO classes (term_id, teacher_id, gender, level_id, schedule_id, notes, content, size) "
+					+ "VALUE (?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, termId);
 			stmt.setInt(2, teacherId);
 			String genderString = "";
@@ -69,11 +71,12 @@ public class TermClass {
 			stmt.setInt(5, scheduleId);
 			stmt.setString(6, notes);
 			stmt.setString(7, "");
+			stmt.setInt(8, size);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
 				int id = rs.getInt(1);
-				newClass = new TermClass(id, termId, teacherId, gender, levelId, scheduleId, notes, "");
+				newClass = new TermClass(id, termId, teacherId, gender, levelId, scheduleId, size, notes, "");
 			}
 			rs.close();
 			stmt.close();
@@ -121,9 +124,10 @@ public class TermClass {
 				}
 				int levelId = rs.getInt("level_id");
 				int scheduleId = rs.getInt("schedule_id");
+				int size = rs.getInt("size");
 				String notes = rs.getString("notes");
 				String content = rs.getString("content");
-				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
+				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, size, notes, content));
 			}
 			rs.close();
 			stmt.close();
@@ -182,9 +186,10 @@ public class TermClass {
 				if(levelId == 0) {
 					levelId = rs.getInt("level_id");
 				}
+				int size = rs.getInt("size");
 				String notes = rs.getString("notes");
 				String content = rs.getString("content");
-				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
+				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, size, notes, content));
 			}
 			rs.close();
 			stmt.close();
@@ -218,9 +223,10 @@ public class TermClass {
 				}
 				int levelId = rs.getInt("level_id");
 				int scheduleId = rs.getInt("schedule_id");
+				int size = rs.getInt("size");
 				String notes = rs.getString("notes");
 				String content = rs.getString("content");
-				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
+				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, size, notes, content));
 			}
 			rs.close();
 			stmt.close();
@@ -260,7 +266,8 @@ public class TermClass {
 				int scheduleId = rs.getInt("schedule_id");
 				String notes = rs.getString("notes");
 				String content = rs.getString("content");
-				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content));
+				int size = rs.getInt("size");
+				classesList.add(new TermClass(id,termId, teacherId, gender, levelId, scheduleId, size, notes, content));
 			}
 			rs.close();
 			stmt.close();
@@ -296,9 +303,10 @@ public class TermClass {
 				}
 				int levelId = rs.getInt("level_id");
 				int scheduleId = rs.getInt("schedule_id");
+				int size = rs.getInt("size");
 				String notes = rs.getString("notes");
 				String content = rs.getString("content");
-				fetchedClass = new TermClass(id,termId, teacherId, gender, levelId, scheduleId, notes, content);
+				fetchedClass = new TermClass(id,termId, teacherId, gender, levelId, scheduleId, size, notes, content);
 			}
 			rs.close();
 			stmt.close();
@@ -433,6 +441,15 @@ public class TermClass {
 		}
 		
 		return found;
+	}
+	
+	public static boolean isClassFull(int classId) {
+		TermClass classObj = TermClass.fetchClass(classId);
+		if(classObj == null) {
+			return false;
+		}
+		int registerred = TermClass.getClassSize(classId);
+		return registerred == classObj.size;
 	}
 	
 	public static int getClassSize(int classId) {

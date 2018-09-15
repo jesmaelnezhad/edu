@@ -62,7 +62,7 @@
 	<br/>
 
 	<table>
-		<tr style="background-color: #ffd23f;">
+		<tr style="background-color: #FFFFFF;">
 			<td><b>
 				شماره تماس
 			</b></td>
@@ -70,7 +70,24 @@
 				۳۲۳۶۰۴۰۷ / ۳۲۳۶۰۴۰۸ / ۰۹۱۷۹۶۸۷۵۰۹ 
 			</td>
 		</tr>
-		<tr  style="background-color: #ffd23f;">
+		<tr style="background-color: #FFFFFF;">
+			<td><b>
+				ارتباط از طریق واتس‌اپ
+			</b></td>
+			<td>
+				<img src="./images/whatsapp.png" style="width:20px; height:20px;"/>
+				۰۹۳۰۹۹۴۷۲۵۶ 
+			</td>
+		</tr>
+		<tr  style="background-color: #FFFFFF;">
+			<td><b>
+				پست الکترونیکی
+			</b></td>
+			<td>
+				zabansara.shiraz@gmail.com 
+			</td>
+		</tr>
+		<tr  style="background-color: #FFFFFF;">
 			<td><b>
 				آدرس
 			</b></td>

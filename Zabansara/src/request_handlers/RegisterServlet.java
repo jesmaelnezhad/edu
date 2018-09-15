@@ -56,7 +56,10 @@ public class RegisterServlet extends HttpServlet {
 		int classId = Integer.parseInt(request.getParameter("classId"));
 		
 		if(request.getParameter("command") == null) {
-			int registrationResult = TermClass.registerInClass(user, classId);
+			int registrationResult = 3;
+			if(! TermClass.isClassFull(classId)) {
+				registrationResult = TermClass.registerInClass(user, classId);
+			}
 			switch (registrationResult) {
 			case 0: // success
 				request.getSession().setAttribute("message", new Message("ثبت‌نام با موفقیت انجام شد.", "green"));
@@ -68,6 +71,10 @@ public class RegisterServlet extends HttpServlet {
 				break;
 			case 2: // already exists;
 				request.getSession().setAttribute("message", new Message("شما قبلا در این کلاس ثبت‌نام کرده‌اید."));
+				response.sendRedirect("./registration.jsp");
+				break;
+			case 3: // class full;
+				request.getSession().setAttribute("message", new Message("ظرفیت این کلاس پر شده است."));
 				response.sendRedirect("./registration.jsp");
 				break;
 			}

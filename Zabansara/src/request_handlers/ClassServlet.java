@@ -62,11 +62,12 @@ public class ClassServlet extends HttpServlet {
 				gender = Gender.BOTH;
 			}
 			int levelId = Integer.parseInt(request.getParameter("levelId"));
+			int size = Integer.parseInt(request.getParameter("size"));
 			String notes = request.getParameter("notes");
 			if(notes == null) {
 				notes = "";
 			}
-			TermClass newClass = TermClass.addClass(termId, teacherId, gender, levelId, scheduleId, notes);
+			TermClass newClass = TermClass.addClass(termId, teacherId, gender, levelId, size, scheduleId, notes);
 			if(newClass != null) {
 				// add the exams of this class
 				Exam midtermExam = Exam.addClassExam(newClass.id, ExamType.MIDTERM);

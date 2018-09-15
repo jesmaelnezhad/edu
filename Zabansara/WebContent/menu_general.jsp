@@ -61,7 +61,6 @@ if(user == null){
 											<div class="megamenu" >	
 													<ul class="dropdown">
 														<li><a style="font-size:12px" href="./contactusbrief.jsp"> ارتباط با ما</a></li>
-														<li><a style="font-size:12px" href="./contactusbrief.jsp"> تماس با ما</a></li>
 														<li><a style="font-size:12px" href="./complains.jsp"> ثبت شکایات</a></li>
 														<li><a style="font-size:12px" href="./contactus.jsp"> آموزشگاه زبان‌سرای شیراز</a></li>
 														<li><a style="font-size:12px" href="https://www.instagram.com/zabansara.shz/"> صفحه‌ی اینستاگرم</a></li>
