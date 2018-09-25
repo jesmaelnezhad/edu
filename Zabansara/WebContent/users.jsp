@@ -246,8 +246,7 @@ if(session.getAttribute("message") != null){
 								
 															<a href="#" data-reveal-id="userChangeModal_<%=u.id%>"
 								class="button" style="margin: 0px;font-size:12px">تغییر</a>
-								<div id="userChangeModal_<%=u.id%>" class="reveal-modal"
-									style="position: fixed;">
+								<div id="userChangeModal_<%=u.id%>" class="reveal-modal">
 									<form method="post"
 										action="./users"
 										enctype='multipart/form-data'
@@ -311,7 +310,7 @@ if(session.getAttribute("message") != null){
 								</div>
 																
 								<a href="#" data-reveal-id="userRemoveModal_<%=u.id %>" class="alert button" style="margin:0px;font-size:12px">حذف</a>
-								<div id="userRemoveModal_<%=u.id %>" class="reveal-modal" style="position:fixed;">
+								<div id="userRemoveModal_<%=u.id %>" class="reveal-modal">
 										<form
 											action="<%out.print("./users");%>"
 											method="post">

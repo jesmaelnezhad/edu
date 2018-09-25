@@ -91,6 +91,7 @@
         </div>
     </section>
 
+<img src="https://trustseal.enamad.ir/logo.aspx?id=97283&amp;p=w57wMx2X8pS9eb2w" alt="" onclick="window.open(&quot;https://trustseal.enamad.ir/Verify.aspx?id=97283&amp;p=w57wMx2X8pS9eb2w&quot;, &quot;Popup&quot;,&quot;toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30&quot;)" style="cursor:pointer" id="w57wMx2X8pS9eb2w">
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

@@ -15,8 +15,8 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/icu4j-61_1.jar"/>
 	<classpathentry kind="lib" path="/home/jam/Software/apache-tomcat-9.0.8/lib/mysql-connector-java-5.1.46.jar"/>
-	<classpathentry kind="lib" path="/home/jam/Software/apache-tomcat-9.0.8/lib/mysql-connector-java-5.1.46-bin.jar"/>
 	<classpathentry kind="lib" path="/home/jam/Software/apache-tomcat-9.0.8/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/home/jam/Software/apache-tomcat-9.0.8/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="/home/jam/Software/apache-tomcat-9.0.8/lib/mysql-connector-java-5.1.46-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

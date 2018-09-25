@@ -90,12 +90,15 @@
 	if(user.role == Role.ADMIN){
 		%>
 	  <form action="./exams"
-		onsubmit="return validateSelectors()" method="post">
+		onsubmit="return validateSelectors(this)" method="post">
 		<input type="hidden" name="command" value="add" />
       <h3>اضافه کردن آزمون جدید:</h3>
       <div class="grid-x ">
 	      <div class="large-6 cell" style="padding-left:0px">
 		<input type="text" name="examTitle" placeholder="عنوان آزمون را اینجا وارد کنید." />
+	      </div>
+	      <div class="large-4 cell" style="padding-left:0px">
+		<input type="text" name="examPrice" id="NewExamPrice" placeholder="هزینه ی آزمون" />
 	      </div>
 	      <div class="large-1 cell" style="padding-right:5px" float="left">
 			<input type="submit" name="sunmit" value="ذخیره" class="button"/>
@@ -148,8 +151,11 @@
 								<input type="hidden" name="command" value="update" />
 								<input type="hidden" name="examId" value="<%=exam.id %>" />
 						      <div class="grid-x ">
-							      <div class="large-10 cell" style="padding-left:0px">
+							      <div class="large-6 cell" style="padding-left:0px">
 								<input type="text" name="examTitle" placeholder="عنوان آزمون را اینجا وارد کنید." value="<%=exam.title %>" />
+							      </div>
+							      <div class="large-4 cell" style="padding-left:0px">
+								<input type="text" name="examPrice" id="NewExamPrice" placeholder="هزینه ی آزمون" />
 							      </div>
 							      <div class="large-1 cell" style="padding-right:5px" float="left">
 									<input type="submit" name="sunmit" value="تغییر" class="button" onclick="$('#myModal').foundation('reveal', 'close');"/>
@@ -187,7 +193,8 @@
 						}else{
 							%>
 							<td style="padding:2px;float:left" >
-								<a href="<%out.print("./exams?command=register&examId=" + exam.id);%>" class="success button" style="margin:0px">ثبت‌نام</a>
+								<!--  <a href="<%out.print("./exams?command=register&examId=" + exam.id);%>" class="success button" style="margin:0px">ثبت‌نام</a>  -->
+								<a href="<%out.print("./payment.jsp?examId=" + exam.id);%>" class="success button" style="margin:0px">ثبت‌نام</a>
 							</td>							
 							<%
 						}

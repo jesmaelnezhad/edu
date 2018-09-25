@@ -168,6 +168,34 @@ CREATE TABLE IF NOT EXISTS grades
 	FOREIGN KEY(student_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
+/*==== orders ====*/
+CREATE TABLE IF NOT EXISTS orders
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	ref_id VARCHAR(200),
+	sale_ref_id BIGINT,
+	user_id INT NOT NULL,
+	price INT NOT NULL,
+	resource_id INT NOT NULL,
+	type ENUM('class', 'exam') NOT NULL DEFAULT 'class',
+	PRIMARY KEY(id),
+	FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=INNODB;
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+/* 
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+INSERT INTO orders (ref_id, user_id, price, resource_id, type) VALUE ('ABCDEF', 1, 1, 1, 'class');
+*/
+
 /*========================*/
 INSERT INTO users (role, username, password, fname, lname, cellphone, email_addr)
 VALUE ('admin', 'admin', MD5('apass'), 'admin' , 'admin' , '09177777777', 'admin@admin.com');

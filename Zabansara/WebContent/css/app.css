@@ -1,3 +1,19 @@
+@font-face {
+    font-family: "samim";
+    src: url("../fonts/samim-font/Farsi-Digits-Without-Latin/Samim-FD-WOL.woff") format('woff');
+}
+@font-face {
+    font-family: "samim";
+    src: url("../fonts/samim-font/Farsi-Digits-Without-Latin/Samim-Bold-FD-WOL.woff") format('woff');
+    font-weight: bold;
+}
+
+* {
+	font-family: "samim";
+}
+
+
+
 body {
 	background-image: url("../images/top_background.jpg");
     background-repeat: no-repeat;

@@ -1,3 +1,6 @@
+<%@page import="com.ibm.icu.util.StringTokenizer"%>
+<%@page import="com.bps.sw.pgw.service.PaymentGatewayImplService"%>
+<%@page import="com.bps.sw.pgw.service.IPaymentGateway"%>
 <%@page import="model.Level"%>
 <%@page import="model.Exam"%>
 <%@page import="model.TermClass"%>
@@ -32,6 +35,23 @@
 	.tg th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center}
 	.tg .tg-yw4l{vertical-align:top}
 	</style>
+	
+	    <script language="javascript" type="text/javascript">
+        function postRefId(refIdValue) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", "https://bpm.shaparak.ir/pgwchannel/startpay.mellat");
+            form.setAttribute("target", "_self");
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("name", "RefId");
+            hiddenField.setAttribute("value", refIdValue);
+            form.appendChild(hiddenField);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+    </script>
   </head>
   <body style="background-color:#e9e8e8">
 
@@ -57,6 +77,18 @@
 				<div class="callout" style="border:none;">
 
 <!-- ---------------------------------------------- -->
+
+<%
+String refId = (String)request.getSession().getAttribute("payment_ref_id");
+if(refId != null){
+	request.getSession().removeAttribute("payment_ref_id");
+	%>
+	<script language='javascript' type='text/javascript'>postRefId('<%=refId  %>');</script>
+	<%
+	return;
+}
+%>
+<!-- ----------------------------------------------- -->
 <%
 User currentUser = User.getCurrentUser(session);
 if(currentUser == null){
@@ -71,21 +103,79 @@ request.setCharacterEncoding("UTF-8");
 String type = "";
 TermClass termClass = null;
 Exam exam = null;
-if (request.getParameter("classId") == null && request.getParameter("examId") == null) {
-	response.sendRedirect("./index.jsp");
-	return;
-}
 if(request.getParameter("classId") != null){
 	type = "class";
 	int id = Integer.parseInt(request.getParameter("classId"));
+	termClass = TermClass.fetchClass(id);
+	request.getSession().setAttribute("payment_classId", id);
+}else if(request.getSession().getAttribute("payment_classId") != null){
+	type = "class";
+	int id = (Integer)request.getSession().getAttribute("payment_classId");
 	termClass = TermClass.fetchClass(id);
 }else if(request.getParameter("examId") != null){
 	type = "exam";
 	int id = Integer.parseInt(request.getParameter("examId"));
 	exam = Exam.fetchExam(id);
+	request.getSession().setAttribute("payment_examId", id);
+}else if(request.getSession().getAttribute("payment_examId") != null){
+	type = "exam";
+	int id = Integer.parseInt(request.getParameter("examId"));
+	exam = Exam.fetchExam(id);
+}
+
+if(termClass == null && exam == null){
+	response.sendRedirect("./index.jsp");
+	return;
+}
+
+
+%>
+
+
+
+<%
+String msg = (String)request.getSession().getAttribute("bank_response_message");
+if(msg != null){
+	request.getSession().removeAttribute("bank_response_message");
+	%>
+	<script language='javascript' type='text/javascript'>alert('<%=msg  %>');</script>
+	<%
 }
 %>
 
+<%
+String msg2 = (String)request.getSession().getAttribute("bank_response_message2");
+if(msg2 != null){
+	request.getSession().removeAttribute("bank_response_message2");
+	%>
+	<script language='javascript' type='text/javascript'>alert('<%=msg2  %>');</script>
+	<%
+}
+%>
+
+<%
+String msg3 = (String)request.getSession().getAttribute("bank_response_message3");
+if(msg3 != null){
+	request.getSession().removeAttribute("bank_response_message3");
+	%>
+	<script language='javascript' type='text/javascript'>alert('<%=msg3  %>');</script>
+	<%
+}
+%>
+
+
+	<span id="message"> <%
+ 	if (session.getAttribute("message") != null) {
+ %><label
+		style="color:<%out.print(((Message) session.getAttribute("message")).color);%>;">
+			<%
+				out.print(((Message) session.getAttribute("message")).message);
+					session.removeAttribute("message");
+			%>
+	</label> <%
+ 	}
+ %>
+	</span>
 <%
 if(type.equals("class")){
 %>
@@ -254,7 +344,7 @@ if(type.equals("class")){
 	<tr>
 		<td></td>
 		<td   style="float:left">
-			<a href="" class="success button" style="margin:0px">پرداخت</a>
+			<a href="<%="./pay?command=pay&price="+level.price+"&classId="+termClass.id %>" class="success button" style="margin:0px">پرداخت</a>
 		</td>
 	</tr>
 	</table>
@@ -265,6 +355,42 @@ if(type.equals("class")){
 }else if(type.equals("exam")){
 %>
 <h3>ثبت نام در آزمون <%=exam.title %></h3>
+
+<div class="grid-x ">
+
+	<table>
+	<tr>
+		<td>نام</td>
+		<td><%out.print(user.fname + " " + user.lname); %></td>
+	</tr>
+	<tr>
+		<td>شماره زبان‌آموزی</td>
+		<td><%out.print(user.student_id); %></td>
+	</tr>
+
+	
+	<tr>
+		<td><b>مبلغ پرداختی</b></td>
+		<td>
+			<b>
+					<%
+					int price = exam.price;
+					out.print(price + " ریال"); 
+					%>
+			</b>
+		</td>
+	</tr>
+	
+	<tr>
+		<td></td>
+		<td   style="float:left">
+			<a href="<%="./pay?command=pay&price="+exam.price+"&examId="+exam.id %>" class="success button" style="margin:0px">پرداخت</a>
+		</td>
+	</tr>
+	</table>
+	
+	
+</div>
 
 <%
 }

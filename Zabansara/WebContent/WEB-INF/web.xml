@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-
   <servlet>
     <servlet-name>signin-servlet</servlet-name>
     <servlet-class>request_handlers/SignInServlet</servlet-class>
@@ -18,7 +17,6 @@
     <servlet-name>signin-servlet</servlet-name>
     <url-pattern>/signin</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>signout-servlet</servlet-name>
     <servlet-class>request_handlers/SignOutServlet</servlet-class>
@@ -27,8 +25,6 @@
     <servlet-name>signout-servlet</servlet-name>
     <url-pattern>/signout</url-pattern>
   </servlet-mapping>
-    
-  
   <servlet>
     <servlet-name>photos-servlet</servlet-name>
     <servlet-class>request_handlers/PhotosServlet</servlet-class>
@@ -37,7 +33,6 @@
     <servlet-name>photos-servlet</servlet-name>
     <url-pattern>/photos</url-pattern>
   </servlet-mapping>
-    
   <servlet>
     <servlet-name>news-servlet</servlet-name>
     <servlet-class>request_handlers/NewsServlet</servlet-class>
@@ -46,7 +41,6 @@
     <servlet-name>news-servlet</servlet-name>
     <url-pattern>/news</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>aboutus-servlet</servlet-name>
     <servlet-class>request_handlers/AboutUsServlet</servlet-class>
@@ -55,7 +49,6 @@
     <servlet-name>aboutus-servlet</servlet-name>
     <url-pattern>/aboutus</url-pattern>
   </servlet-mapping>
-      
   <servlet>
     <servlet-name>profile-servlet</servlet-name>
     <servlet-class>request_handlers/ProfileServlet</servlet-class>
@@ -64,7 +57,6 @@
     <servlet-name>profile-servlet</servlet-name>
     <url-pattern>/profile</url-pattern>
   </servlet-mapping>
-      
   <servlet>
     <servlet-name>terms-servlet</servlet-name>
     <servlet-class>request_handlers/TermsServlet</servlet-class>
@@ -73,7 +65,6 @@
     <servlet-name>terms-servlet</servlet-name>
     <url-pattern>/terms</url-pattern>
   </servlet-mapping>
-       
   <servlet>
     <servlet-name>levels-servlet</servlet-name>
     <servlet-class>request_handlers/LevelsServlet</servlet-class>
@@ -82,7 +73,6 @@
     <servlet-name>levels-servlet</servlet-name>
     <url-pattern>/levels</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <servlet-name>availability-servlet</servlet-name>
     <servlet-class>request_handlers/AvailabilityServlet</servlet-class>
@@ -91,7 +81,6 @@
     <servlet-name>availability-servlet</servlet-name>
     <url-pattern>/availability</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <servlet-name>class-servlet</servlet-name>
     <servlet-class>request_handlers/ClassServlet</servlet-class>
@@ -100,7 +89,6 @@
     <servlet-name>class-servlet</servlet-name>
     <url-pattern>/class</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <servlet-name>register-servlet</servlet-name>
     <servlet-class>request_handlers/RegisterServlet</servlet-class>
@@ -109,7 +97,6 @@
     <servlet-name>register-servlet</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>users-servlet</servlet-name>
     <servlet-class>request_handlers/UsersServlet</servlet-class>
@@ -118,7 +105,6 @@
     <servlet-name>users-servlet</servlet-name>
     <url-pattern>/users</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>exams-servlet</servlet-name>
     <servlet-class>request_handlers/ExamsServlet</servlet-class>
@@ -127,7 +113,6 @@
     <servlet-name>exams-servlet</servlet-name>
     <url-pattern>/exams</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>grades-servlet</servlet-name>
     <servlet-class>request_handlers/GradesServlet</servlet-class>
@@ -135,5 +120,14 @@
   <servlet-mapping>
     <servlet-name>grades-servlet</servlet-name>
     <url-pattern>/grades</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>pay-servlet</servlet-name>
+    <servlet-class>request_handlers/PayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>pay-servlet</servlet-name>
+    <url-pattern>/pay</url-pattern>
   </servlet-mapping>
 </web-app>
